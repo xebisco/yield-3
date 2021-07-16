@@ -8,7 +8,7 @@
   <h3 align="center">Yield</h3>
 
   <p align="center">
-    A Java 2D Game Engine
+    A 2D Java Game Engine
   </p>
 </p>
 
