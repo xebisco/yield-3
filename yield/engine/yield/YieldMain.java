@@ -30,7 +30,7 @@ public class YieldMain {
 	// os erros que são enviados para a engine
 	private static List<String> errors = new ArrayList<String>();
 	
-	private static String version = "1.0";
+	private static String version = "1.0_2 unstable";
 	
 	private boolean c;
 	

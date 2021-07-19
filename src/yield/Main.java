@@ -13,6 +13,7 @@ public class Main extends Yield {
 		Settings.Engine.Change(1280, 720, 60);
 		Settings.Info.Change("yield Window test", "vto", "1.0");
 		Init.startApp();
+		//How to start a yield app
 	}
 
 }

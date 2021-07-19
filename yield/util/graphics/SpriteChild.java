@@ -34,11 +34,11 @@ public class SpriteChild {
 		this.width = width;
 	}
 
-	public int getHeigth() {
+	public int getHeight() {
 		return height;
 	}
 
-	public void setHeigth(int heigth) {
+	public void setHeight(int heigth) {
 		this.height = heigth;
 	}
 
@@ -94,14 +94,20 @@ public class SpriteChild {
 	}
 
 	public void draw(int x, int y) {
+		if(me != null)
 		me.draw(x - hx, y - hy, me.width, me.height);
 	}
 	public void draw(int x, int y, int width, int height) {
+		if(me != null)
 		me.draw(x - hx, y - hy, width, height);
 	}
 	public void draw(int x, int y, int width, int height, String arg) {
 		if(arg.equals("IGNORE_HOT_POINT")) {
-			me.draw(x - hx, y - hy, me.width, me.height);
+			if(me != null)
+			me.draw(x, y, me.width, me.height);
+		} else {
+			if(me != null)
+				me.draw(x - hx, y - hy, me.width, me.height);
 		}
 	}
 

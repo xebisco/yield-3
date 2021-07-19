@@ -230,7 +230,7 @@ public class ScreenMain extends Canvas {
 			this.createBufferStrategy(3);
 			return;
 		}
-		Graphics g = YieldMain.getScreenMain().getImage().getGraphics();
+		Graphics g = image.getGraphics();
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(0, 0, Settings.getGame_WIDTH(), Settings.getGame_HEIGHT());
 
@@ -241,33 +241,16 @@ public class ScreenMain extends Canvas {
 
 		mainGraphics = g;
 
-		Yield.g = mainGraphics;
+		Yield.g = g;
 
 		for (int i = 0; i < YieldMain.getObjects().size(); i++) {
 			Yield obj = YieldMain.getObjects().get(i);
 			if (obj.render == true) {
 
-				obj.Render1();
-				obj.Render2();
-				obj.Render3();
-				obj.Render4();
-				obj.Render5();
-				obj.Render6();
-				obj.Render7();
-				obj.Render8();
-				obj.Render9();
-				obj.Render10();
-				obj.Render11();
-				obj.Render12();
-				obj.Render13();
-				obj.Render14();
 				obj.Render();
-
-				g2.setTransform(oldXForm);
 			}
+			g2.setTransform(oldXForm);
 		}
-
-		requestFocus();
 		
 		panelRender();
 

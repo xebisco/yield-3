@@ -1,20 +1,25 @@
 package util.file.txt;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.channels.FileChannel;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+
+import basic.Yield;
 
 public class Writer {
 
 	public static void writeFile(String path, String[] things) {
 		try {
 
-			FileChannel.open(Paths.get(path), StandardOpenOption.WRITE).truncate(0).close();
+			File filep = new File(Yield.getMainClass().getClass().getResource(path).toURI());
 
-			FileOutputStream file = new FileOutputStream(path);
+			FileChannel.open(filep.toPath(), StandardOpenOption.WRITE).truncate(0).close();
+
+			FileOutputStream file = new FileOutputStream(filep);
 
 			for (int i2 = 0; i2 < things.length; i2++) {
 				String st = things[i2];
@@ -45,17 +50,20 @@ public class Writer {
 
 			file.close();
 
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void writeFile(String path, String things) {
+
 		try {
+			
+			File filep = new File(Yield.getMainClass().getClass().getResource(path).toURI());
 
-			FileChannel.open(Paths.get(path), StandardOpenOption.WRITE).truncate(0).close();
+			FileChannel.open(filep.toPath(), StandardOpenOption.WRITE).truncate(0).close();
 
-			FileOutputStream file = new FileOutputStream(path);
+			FileOutputStream file = new FileOutputStream(filep);
 
 			String st = things;
 
@@ -81,17 +89,19 @@ public class Writer {
 
 			file.close();
 
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void writeFile(String path, List<String> things) {
 		try {
 
-			FileChannel.open(Paths.get(path), StandardOpenOption.WRITE).truncate(0).close();
+			File filep = new File(Yield.getMainClass().getClass().getResource(path).toURI());
 
-			FileOutputStream file = new FileOutputStream(path);
+			FileChannel.open(filep.toPath(), StandardOpenOption.WRITE).truncate(0).close();
+
+			FileOutputStream file = new FileOutputStream(filep);
 
 			for (int i2 = 0; i2 < things.size(); i2++) {
 				String st = things.get(i2);
@@ -122,7 +132,7 @@ public class Writer {
 
 			file.close();
 
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 	}
