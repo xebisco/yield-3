@@ -3,8 +3,7 @@ package yield.util;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import yield.main.YieldScript;
 import yieldg.ui.YuiCanvas;
 import yieldg.ui.YuiGraphical;
 
-public class Mouse extends YieldScript implements MouseListener {
+public class Mouse extends YieldScript implements MouseListener, MouseWheelListener {
 
 	@Override
 	public String tag() {
@@ -25,6 +24,8 @@ public class Mouse extends YieldScript implements MouseListener {
 	private static double mouseX, mouseY;
 
 	private static boolean clicking;
+
+	private static int wheel;
 
 	private int framesclick;
 
@@ -80,6 +81,89 @@ public class Mouse extends YieldScript implements MouseListener {
 
 	public static boolean isClicking() {
 		return clicking;
+	}
+
+		/**
+	 * @return the canvas
+	 */
+	public static List<YuiCanvas> getCanvas() {
+		return canvas;
+	}
+
+	/**
+	 * @param canvas the canvas to set
+	 */
+	public static void setCanvas(List<YuiCanvas> canvas) {
+		Mouse.canvas = canvas;
+	}
+
+	/**
+	 * @param mouseX the mouseX to set
+	 */
+	public static void setMouseX(double mouseX) {
+		Mouse.mouseX = mouseX;
+	}
+
+	/**
+	 * @param mouseY the mouseY to set
+	 */
+	public static void setMouseY(double mouseY) {
+		Mouse.mouseY = mouseY;
+	}
+
+	/**
+	 * @param clicking the clicking to set
+	 */
+	public static void setClicking(boolean clicking) {
+		Mouse.clicking = clicking;
+	}
+
+	/**
+	 * @return the wheel
+	 */
+	public static int getWheel() {
+		return wheel;
+	}
+
+	/**
+	 * @param wheel the wheel to set
+	 */
+	public static void setWheel(int wheel) {
+		Mouse.wheel = wheel;
+	}
+
+	/**
+	 * @return the framesclick
+	 */
+	public int getFramesclick() {
+		return framesclick;
+	}
+
+	/**
+	 * @param framesclick the framesclick to set
+	 */
+	public void setFramesclick(int framesclick) {
+		this.framesclick = framesclick;
+	}
+
+	/**
+	 * @return the clickfalse
+	 */
+	public boolean isClickfalse() {
+		return clickfalse;
+	}
+
+	/**
+	 * @param clickfalse the clickfalse to set
+	 */
+	public void setClickfalse(boolean clickfalse) {
+		this.clickfalse = clickfalse;
+	}
+
+	
+	@Override
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		wheel = e.getWheelRotation();
 	}
 
 	@Override
