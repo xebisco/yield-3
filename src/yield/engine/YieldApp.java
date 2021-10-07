@@ -27,7 +27,7 @@ public final class YieldApp extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final String ENGINEVERSION_STRING = "2";
+	public static final String ENGINEVERSION_STRING = "2.0.1";
 
 	private int TPS, RPS, ticks, frames, width = 1280, height = 720, numBuffers = 1;
 
