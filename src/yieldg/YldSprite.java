@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 public class YldSprite {
 	
 	private BufferedImage image;
-	private static String iconPath = "/logo300x300.png";
+	private static String iconPath = "/Yield Icon.png";
 	public String path, name;
 	public int height;
 	public int width;

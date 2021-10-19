@@ -1,5 +1,6 @@
 package yield.core;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,15 +15,19 @@ import yield.core.engines.interfaces.YldGraphical;
 import yield.core.engines.interfaces.YldLogical;
 import yield.util.YldReader;
 import yield.util.YldWriter;
+import yieldg.YldSprite;
 
 public class YldCore implements YldLogical, YldGraphical {
 
-	public static String core_version = "1.0";
-	
+	public static String core_version = "1.0.1";
+
+	public static boolean yieldpresentation;
+
 	private List<YldScript> yldScripts;
 	private YldLogicEngine yldLogicEngine;
 	private YldGraphicsEngine yldGraphicsEngine;
 	public int TPS, FPS;
+	private YldSprite yieldlogo = new YldSprite("/YieldP.png");
 
 	public YldCore() {
 		yldScripts = new ArrayList<YldScript>();
@@ -68,24 +73,37 @@ public class YldCore implements YldLogical, YldGraphical {
 	@Override
 	public void render(Graphics2D g) {
 		TPS = (int) yldGraphicsEngine.getFPS();
+		int n = 0;
 		if (yldScripts != null) {
 			for (int i = 0; i < yldScripts.size(); i++) {
 				YldScript script = yldScripts.get(i);
 				if (script instanceof YldGScript) {
+					n++;
 					if (script.getBody() != null) {
 						if (script.getBody().getRoom() != null) {
 							if (script.getBody().getRoom() == YldRoom.getActRoom()) {
-								((YldGScript) script).render(g);
+								((YldGScript) script).updateRender(g);
 							}
 						} else {
-							((YldGScript) script).render(g);
+							((YldGScript) script).updateRender(g);
 						}
 					} else {
-						((YldGScript) script).render(g);
+						((YldGScript) script).updateRender(g);
 					}
 					;
 				}
 			}
+		}
+
+		if (n <= 1 || yieldpresentation) {
+			g.setColor(Color.darkGray);
+			g.fillRect(0, 0, getYldGraphicsEngine().getWWidth(), getYldGraphicsEngine().getWHeight());
+			g.drawImage(yieldlogo.getBufferedImage(),
+					(int) (yldGraphicsEngine.getWWidth() / 2
+							- (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667) / 1.9),
+					(int) (yldGraphicsEngine.getWHeight() / 2
+							- (int) ((double) yldGraphicsEngine.getWHeight() / 1.706666666666667) / 2.6), (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667),
+					(int) ((double) yldGraphicsEngine.getWHeight() / 2.4), null);
 		}
 	}
 
@@ -168,6 +186,13 @@ public class YldCore implements YldLogical, YldGraphical {
 	 */
 	public void setYldGraphicsEngine(YldGraphicsEngine yldGraphicsEngine) {
 		this.yldGraphicsEngine = yldGraphicsEngine;
+	}
+
+	/**
+	 * @return the yieldlogo
+	 */
+	public YldSprite getYieldlogo() {
+		return yieldlogo;
 	}
 
 }

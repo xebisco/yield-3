@@ -12,11 +12,11 @@ public class FloatingYieldLogo {
 
 	double x, y, speed = 1;
 
-	int xx = 1, yx = 1;
+	int xx = 1, yx = 1, width = 300, height = 300;
 
 	boolean controlling = false;
 
-	YldSprite logoSprite = new YldSprite("/YieldPresentation.png");
+	YldSprite logoSprite = new YldSprite("/Yield Presentation.png");
 
 	YldGScript logoScript = new YldGScript() {
 
@@ -32,8 +32,8 @@ public class FloatingYieldLogo {
 			}
 
 			if (!controlling) {
-				x += speed * YldTime.deltaTime() * xx;
-				y += speed * YldTime.deltaTime() * yx;
+				x += speed * YldTime.deltaTime() * (double) xx;
+				y += speed * YldTime.deltaTime() * (double) yx;
 			} else {
 				x += speed * YldTime.deltaTime() * YldMainInputs.horizontal;
 				y += speed * YldTime.deltaTime() * YldMainInputs.vertical;
@@ -43,7 +43,7 @@ public class FloatingYieldLogo {
 				xx = 1;
 				x += speed * YldTime.deltaTime();
 			}
-			if (x > yld.getYldGraphicsEngine().getWWidth() - logoSprite.width) {
+			if (x > yld.getYldGraphicsEngine().getWWidth() - width) {
 				xx = -1;
 				x -= speed * YldTime.deltaTime();
 			}
@@ -52,7 +52,7 @@ public class FloatingYieldLogo {
 				yx = 1;
 				y += speed * YldTime.deltaTime();
 			}
-			if (y > yld.getYldGraphicsEngine().getWHeight() - logoSprite.height) {
+			if (y > yld.getYldGraphicsEngine().getWHeight() - height) {
 				yx = -1;
 				y -= speed * YldTime.deltaTime();
 			}
@@ -60,10 +60,9 @@ public class FloatingYieldLogo {
 		}
 
 		public void render(java.awt.Graphics2D g) {
-
-			g.setColor(new Color(10, 0, 30));
+			g.setColor(Color.darkGray);
 			g.fillRect(0, 0, yld.getYldGraphicsEngine().getWWidth(), yld.getYldGraphicsEngine().getWHeight());
-			g.drawImage(logoSprite.getBufferedImage(), (int) x, (int) y, null);
+			g.drawImage(logoSprite.getBufferedImage(), (int) x, (int) y, width, height, null);
 
 		}
 

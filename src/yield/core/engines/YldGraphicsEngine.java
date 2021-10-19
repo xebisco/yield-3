@@ -107,7 +107,8 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 			if (!pause && window != null && image != null) {
 				try {
-					g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
+					if (g != null)
+						g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
 				} catch (Exception e) {
 					throw new YldGraphicsException(e.getMessage());
 				}

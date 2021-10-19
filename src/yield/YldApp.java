@@ -12,6 +12,7 @@ import yieldg.window.YldWindow;
 public abstract class YldApp {
 
 	public static String yield_engine_version = "3";
+	public static String yldapp_version = "1.0";
 	
 	public static YldWindow window;
 	public static YldCore core;
