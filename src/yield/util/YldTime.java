@@ -8,6 +8,7 @@ public final class YldTime extends YldGScript {
 
 	@Override
 	public String tag() {
+		load();
 		return "Time";
 	}
 

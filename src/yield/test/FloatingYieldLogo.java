@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import yield.YldGScript;
 import yield.util.YldTime;
-import yield.util.input.YldInput;
 import yield.util.input.YldMainInputs;
 import yieldg.YldSprite;
 
@@ -12,7 +11,7 @@ public class FloatingYieldLogo {
 
 	double x, y, speed = 1;
 
-	int xx = 1, yx = 1, width = 300, height = 300;
+	int xx = 1, yx = 1, width = 400, height = 400;
 
 	boolean controlling = false;
 
@@ -27,16 +26,16 @@ public class FloatingYieldLogo {
 
 		public void tick() {
 			
-			if (YldInput.getKeysSet().size() > 0) {
+			if (YldMainInputs.horizontal != 0 || YldMainInputs.vertical != 0) {
 				controlling = true;
 			}
 
 			if (!controlling) {
-				x += speed * YldTime.deltaTime() * (double) xx;
-				y += speed * YldTime.deltaTime() * (double) yx;
+				x += speed * (double) xx;
+				y += speed * (double) yx;
 			} else {
-				x += speed * YldTime.deltaTime() * YldMainInputs.horizontal;
-				y += speed * YldTime.deltaTime() * YldMainInputs.vertical;
+				x += speed * YldMainInputs.horizontal;
+				y += speed * YldMainInputs.vertical;
 			}
 
 			if (x < 0) {

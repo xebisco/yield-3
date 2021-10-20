@@ -1,6 +1,7 @@
 package yield.core;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import yieldg.YldSprite;
 
 public class YldCore implements YldLogical, YldGraphical {
 
-	public static String core_version = "1.0.1";
+	public static String core_version = "1.0.2";
 
 	public static boolean yieldpresentation;
 
@@ -43,6 +44,7 @@ public class YldCore implements YldLogical, YldGraphical {
 	@Override
 	public void update() {
 		TPS = (int) yldLogicEngine.getTPS();
+		
 		if (yldScripts != null) {
 			for (int i = 0; i < yldScripts.size(); i++) {
 				YldScript script = yldScripts.get(i);
@@ -96,14 +98,17 @@ public class YldCore implements YldLogical, YldGraphical {
 		}
 
 		if (n <= 1 || yieldpresentation) {
-			g.setColor(Color.darkGray);
-			g.fillRect(0, 0, getYldGraphicsEngine().getWWidth(), getYldGraphicsEngine().getWHeight());
+			g.clearRect(0, 0, yldGraphicsEngine.getWWidth(), yldGraphicsEngine.getWHeight());
 			g.drawImage(yieldlogo.getBufferedImage(),
 					(int) (yldGraphicsEngine.getWWidth() / 2
 							- (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667) / 1.9),
 					(int) (yldGraphicsEngine.getWHeight() / 2
 							- (int) ((double) yldGraphicsEngine.getWHeight() / 1.706666666666667) / 2.6), (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667),
 					(int) ((double) yldGraphicsEngine.getWHeight() / 2.4), null);
+			g.setFont(new Font("arial", 0, 10));
+			g.setColor(Color.white);
+			String string = "made by vtogames";
+			g.drawString(string, getYldGraphicsEngine().getWWidth() - g.getFontMetrics().stringWidth(string), getYldGraphicsEngine().getWHeight() - g.getFont().getSize() / 2);
 		}
 	}
 

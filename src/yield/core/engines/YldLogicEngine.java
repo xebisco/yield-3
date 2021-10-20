@@ -49,6 +49,7 @@ public final class YldLogicEngine implements Runnable {
 					timer += 1000;
 				}	
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new YldLogicException(e.getMessage());
 			}
 

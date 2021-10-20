@@ -10,7 +10,7 @@ public class TestApp extends YldApp {
 	public void start() {
 		resolutionDimension = new Dimension(1280, 720);
 		startYield();
-		new FloatingYieldLogo();
+		//new FloatingYieldLogo();
 	}
 	
 	public static void main(String[] args) {

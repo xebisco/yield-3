@@ -61,6 +61,7 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 					timer += 1000;
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new YldGraphicsException(e.getMessage());
 			}
 
@@ -71,6 +72,8 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 	private void render() {
 		if (window != null) {
+			
+			requestFocus();
 
 			h = (int) (((double) getHeight()));
 			w = (int) ((double) h * ((double) getWWidth() / (double) getWHeight()));
@@ -101,6 +104,8 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 			///////////////////////////////////////////////////////////////////////////////////
 
+			g.transform(oldXForm);
+			
 			g.dispose();
 
 			g = (Graphics2D) bs.getDrawGraphics();
@@ -113,8 +118,6 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 					throw new YldGraphicsException(e.getMessage());
 				}
 			}
-
-			g.transform(oldXForm);
 
 			bs.show();
 		}

@@ -17,24 +17,12 @@ public abstract class YldScript {
 
 	public abstract String tag();
 	
-	private boolean load = true;
-
-	public YldScript(boolean load) {
-		awake();
-		this.load = load;
-		if (load) {
-			load();
-		}
-	}
-	
 	public YldScript() {
 		awake();
-		if(load)
-		load();
 	}
 
 	public void awake() {
-
+		load();
 	}
 
 	public void start() {
