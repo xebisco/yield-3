@@ -14,7 +14,7 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static String graphics_engine_version = "1.0";
+	public final static String GRAPHICS_ENGINE_VERSION = "1.0";
 
 	private boolean running = true, refreshBuffers = true, pause = false;
 	private double targetFPS = 60, FPS = targetFPS, addX, addY, addWidth, addHeight;

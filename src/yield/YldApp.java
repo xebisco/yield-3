@@ -11,8 +11,8 @@ import yieldg.window.YldWindow;
 
 public abstract class YldApp {
 
-	public static String yield_engine_version = "3";
-	public static String yldapp_version = "1.1";
+	public final static String YIELD_VERSION = "3";
+	public static String YLDAPP_VERSION = "1.1b";
 
 	public static YldWindow window;
 	public static YldScript windowScript;
@@ -30,14 +30,14 @@ public abstract class YldApp {
 	 * Create YldCore class, and start it all.
 	 */
 	public void startYield() {
-		System.out.println("Starting Yield " + yield_engine_version + "...");
+		System.out.println("Starting Yield " + YIELD_VERSION + "...");
+
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		if (resolutionDimension == null) {
 			resolutionDimension = new Dimension(1280, 720);
 		}
@@ -45,7 +45,7 @@ public abstract class YldApp {
 		if (sizeDimension == null) {
 			sizeDimension = new Dimension(1280, 720);
 		}
-		
+
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Starting YldCore...");
 		core = new YldCore();
@@ -67,8 +67,8 @@ public abstract class YldApp {
 		System.out.println("-----------///-----------");
 		System.out.println("Starting Engines...");
 		core.startEngines();
-		System.out.println("Setting YldGraphicsEngine \nresolution as: width: " + resolutionDimension.width + ", height "
-				+ resolutionDimension.height + ".");
+		System.out.println("Setting YldGraphicsEngine \nresolution as: width: " + resolutionDimension.width
+				+ ", height " + resolutionDimension.height + ".");
 		core.getYldGraphicsEngine().setWWidth(resolutionDimension.width);
 		core.getYldGraphicsEngine().setWHeight(resolutionDimension.height);
 		System.out.println("Engines Started!");

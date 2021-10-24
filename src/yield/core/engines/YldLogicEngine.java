@@ -6,7 +6,7 @@ import yield.exceptions.YldLogicException;
 public final class YldLogicEngine implements Runnable {
 
 	
-	public static String logic_engine_version = "1.0";
+	public final static String LOGIC_ENGINE_VERSION = "1.0";
 	
 	private boolean running = true;
 	private double targetTPS = 60, TPS = targetTPS;

@@ -4,6 +4,8 @@ import yield.core.engines.interfaces.YldBPM;
 
 public final class YldBPMEngine implements Runnable {
 	
+	public final static String BPM_ENGINE_VERSION = "1.0";
+	
 	private Thread thread;
 	private double bpm;
 	private boolean active;
