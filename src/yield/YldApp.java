@@ -11,7 +11,7 @@ import yieldg.window.YldWindow;
 
 public abstract class YldApp {
 
-	public final static String YIELD_VERSION = "3";
+	public final static String YIELD_VERSION = "3.01";
 	public static String YLDAPP_VERSION = "1.1b";
 
 	public static YldWindow window;
