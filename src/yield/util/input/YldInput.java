@@ -23,10 +23,10 @@ public final class YldInput implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		keysSet.remove(KeyEvent.getKeyText(e.getKeyCode()).toUpperCase());
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 
 	/**
@@ -39,10 +39,13 @@ public final class YldInput implements KeyListener {
 	public static boolean isKeyPressed(String key) {
 		String keyToCompaire = key.toUpperCase();
 		for (String string : keysSet) {
-			if (string.hashCode() == keyToCompaire.hashCode()) {
-				if (string.equals(keyToCompaire)) {
-					return true;
+			try {
+				if (string.hashCode() == keyToCompaire.hashCode()) {
+					if (string.equals(keyToCompaire)) {
+						return true;
+					}
 				}
+			} catch (Exception e) {
 			}
 		}
 		return false;

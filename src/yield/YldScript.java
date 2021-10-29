@@ -14,6 +14,8 @@ public abstract class YldScript {
 	private YldBody body;
 
 	protected static YldCore yld = YldApp.core;
+	
+	protected static YldApp app = yld.app;
 
 	public abstract String tag();
 	

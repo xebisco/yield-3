@@ -49,7 +49,16 @@ public abstract class YldApp {
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Starting YldCore...");
 		core = new YldCore();
+		core.app = this;
 		System.out.println("YldCore Started!");
+		System.out.println("-----------///-----------");
+		System.out.println("Starting Engines...");
+		core.startEngines();
+		System.out.println("Setting YldGraphicsEngine \nresolution as: width: " + resolutionDimension.width
+				+ ", height " + resolutionDimension.height + ".");
+		core.getYldGraphicsEngine().setWWidth(resolutionDimension.width);
+		core.getYldGraphicsEngine().setWHeight(resolutionDimension.height);
+		System.out.println("Engines Started!");
 		System.out.println("-----------///-----------");
 		System.out.println("Creating YldWindow...");
 
@@ -65,20 +74,10 @@ public abstract class YldApp {
 		window.setSize(sizeDimension.width, sizeDimension.height + window.getInsets().top);
 		System.out.println("YldWindow has been created!");
 		System.out.println("-----------///-----------");
-		System.out.println("Starting Engines...");
-		core.startEngines();
-		System.out.println("Setting YldGraphicsEngine \nresolution as: width: " + resolutionDimension.width
-				+ ", height " + resolutionDimension.height + ".");
-		core.getYldGraphicsEngine().setWWidth(resolutionDimension.width);
-		core.getYldGraphicsEngine().setWHeight(resolutionDimension.height);
-		System.out.println("Engines Started!");
-		System.out.println("-----------///-----------");
 		core.getYldGraphicsEngine().setWindow(window);
 		window.add(core.getYldGraphicsEngine());
 		System.out.println("YldWindow linked to YldCore!");
 		System.out.println("-----------///-----------");
-		core.getYldGraphicsEngine().setWindow(window);
-		window.add(core.getYldGraphicsEngine());
 		YldMouse mouse = new YldMouse();
 		core.getYldGraphicsEngine().addMouseListener(mouse);
 		core.getYldGraphicsEngine().addMouseWheelListener(mouse);
@@ -123,6 +122,7 @@ public abstract class YldApp {
 		new YldTime();
 		System.out.println("YldTime created!");
 		System.out.println("\n-	-	-	-	-	-\n");
+		core.getYldGraphicsEngine().setPause(false);
 		System.out.println("Yield started!");
 	}
 

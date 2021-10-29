@@ -8,7 +8,7 @@ public final class YldBPMEngine implements Runnable {
 	
 	private Thread thread;
 	private double bpm;
-	private boolean active;
+	private boolean running, pause;
 	private YldBPM yldBpm;
 
 	public YldBPMEngine(YldBPM yldBPM) {
@@ -20,19 +20,61 @@ public final class YldBPMEngine implements Runnable {
 
 	@Override
 	public void run() {
-		active = true;
-		while (active) {
+		running = true;
+		while (running) {
 			if (getBpm() == 0)
 				setBpm(120);
 			try {
-				if(yldBpm != null) {
+				if(yldBpm != null && !pause) {
 					yldBpm.tickBPM();
 				}
-				Thread.sleep((long) (60000d / bpm));
+				Thread.sleep((long) (60000.0 / bpm));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/**
+	 * @return the running
+	 */
+	public boolean isRunning() {
+		return running;
+	}
+
+	/**
+	 * @param running the running to set
+	 */
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	/**
+	 * @return the pause
+	 */
+	public boolean isPause() {
+		return pause;
+	}
+
+	/**
+	 * @param pause the pause to set
+	 */
+	public void setPause(boolean pause) {
+		this.pause = pause;
+	}
+
+	/**
+	 * @return the yldBpm
+	 */
+	public YldBPM getYldBpm() {
+		return yldBpm;
+	}
+
+	/**
+	 * @param yldBpm the yldBpm to set
+	 */
+	public void setYldBpm(YldBPM yldBpm) {
+		this.yldBpm = yldBpm;
 	}
 
 	public Thread getThread() {

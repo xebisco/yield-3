@@ -1,12 +1,14 @@
 package yield.core;
 
 import java.awt.Color;
+import java.awt.geom.AffineTransform;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import yield.YldApp;
 import yield.YldGScript;
 import yield.YldRoom;
 import yield.YldScript;
@@ -23,6 +25,7 @@ public class YldCore implements YldLogical, YldGraphical {
 	public final static String CORE_VERSION = "1.0.2";
 
 	public static boolean yieldpresentation;
+	public YldApp app;
 
 	private List<YldScript> yldScripts;
 	private YldLogicEngine yldLogicEngine;
@@ -79,6 +82,7 @@ public class YldCore implements YldLogical, YldGraphical {
 		if (yldScripts != null) {
 			for (int i = 0; i < yldScripts.size(); i++) {
 				YldScript script = yldScripts.get(i);
+				AffineTransform at = g.getTransform();
 				if (script instanceof YldGScript) {
 					n++;
 					if (script.getBody() != null) {
@@ -94,7 +98,7 @@ public class YldCore implements YldLogical, YldGraphical {
 					}
 					;
 				}
-			}
+				g.transform(at);			}
 		}
 
 		if (n <= 1 || yieldpresentation) {

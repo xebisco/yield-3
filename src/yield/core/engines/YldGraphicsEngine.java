@@ -102,6 +102,7 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 			yldGraphical.render(g);
 
+
 			///////////////////////////////////////////////////////////////////////////////////
 
 			g.transform(oldXForm);
@@ -110,10 +111,9 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 			g = (Graphics2D) bs.getDrawGraphics();
 
-			if (!pause && window != null && image != null) {
+			if (!pause) {
 				try {
-					if (g != null)
-						g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
+					g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
 				} catch (Exception e) {
 					throw new YldGraphicsException(e.getMessage());
 				}
@@ -394,5 +394,54 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 	 */
 	public void setAddHeight(double addHeight) {
 		this.addHeight = addHeight;
+	}
+
+	/**
+	 * @return the graphicsEngineVersion
+	 */
+	public static String getGraphicsEngineVersion() {
+		return GRAPHICS_ENGINE_VERSION;
+	}
+
+	/**
+	 * @return the pause
+	 */
+	public boolean isPause() {
+		return pause;
+	}
+
+	/**
+	 * @param pause the pause to set
+	 */
+	public void setPause(boolean pause) {
+		this.pause = pause;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
 	}
 }
