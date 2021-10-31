@@ -12,6 +12,12 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import yield.YldScript;
 
 public class YldAudio extends YldScript {
+
+	@Override
+	public String tag() {
+		return "YldAudio";
+	}
+	
 	private static float masterVolume = 90f;
 	private String path;
 	private Clip clip;
@@ -67,7 +73,8 @@ public class YldAudio extends YldScript {
 
 	}
 
-	public void Update() {
+	@Override
+	public void tick() {
 		frames++;
 		if (!customVolume && clip != null && frames > 10) {
 			setVolume(masterVolume);
@@ -142,10 +149,5 @@ public class YldAudio extends YldScript {
 	public void close() {
 		stop();
 		clip.close();
-	}
-
-	@Override
-	public String tag() {
-		return "EngineAudio";
 	}
 }

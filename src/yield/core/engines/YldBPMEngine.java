@@ -3,9 +3,9 @@ package yield.core.engines;
 import yield.core.engines.interfaces.YldBPM;
 
 public final class YldBPMEngine implements Runnable {
-	
+
 	public final static String BPM_ENGINE_VERSION = "1.0";
-	
+
 	private Thread thread;
 	private double bpm;
 	private boolean running, pause;
@@ -25,7 +25,7 @@ public final class YldBPMEngine implements Runnable {
 			if (getBpm() == 0)
 				setBpm(120);
 			try {
-				if(yldBpm != null && !pause) {
+				if (yldBpm != null && !pause) {
 					yldBpm.tickBPM();
 				}
 				Thread.sleep((long) (60000.0 / bpm));

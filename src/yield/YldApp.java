@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Locale;
 
 import yield.core.YldCore;
+import yield.object.YldObjectCore;
 import yield.util.YldTime;
 import yield.util.input.YldInput;
 import yield.util.input.YldMouse;
@@ -19,6 +20,7 @@ public abstract class YldApp {
 	public static YldCore core;
 	protected static Dimension resolutionDimension, sizeDimension;
 	public static Dimension actSize;
+	public static YldObjectCore objectCore;
 	private static boolean canWindowSwitchToFullscreen = true;
 
 	public YldApp() {
@@ -61,7 +63,6 @@ public abstract class YldApp {
 		System.out.println("Engines Started!");
 		System.out.println("-----------///-----------");
 		System.out.println("Creating YldWindow...");
-
 		window = new YldWindow();
 		System.out.println("Setting YldWindow size \nas: width: " + sizeDimension.width + ", height "
 				+ sizeDimension.height + ".");
@@ -119,10 +120,15 @@ public abstract class YldApp {
 		};
 		System.out.println("windowScript created!");
 		System.out.println("-----------///-----------");
+
 		new YldTime();
 		System.out.println("YldTime created!");
-		System.out.println("\n-	-	-	-	-	-\n");
 		core.getYldGraphicsEngine().setPause(false);
+		System.out.println("Starting YldObjectCore...");
+		objectCore = new YldObjectCore();
+		System.out.println("-----------///-----------");
+		System.out.println("YldObjectCore started!");
+		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Yield started!");
 	}
 
