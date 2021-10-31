@@ -12,7 +12,7 @@ import yieldg.window.YldWindow;
 
 public abstract class YldApp {
 
-	public final static String YIELD_VERSION = "3.02";
+	public final static String YIELD_VERSION = "3.2";
 	public static String YLDAPP_VERSION = "1.2";
 
 	public static YldWindow window;
@@ -124,10 +124,10 @@ public abstract class YldApp {
 		new YldTime();
 		System.out.println("YldTime created!");
 		core.getYldGraphicsEngine().setPause(false);
-		System.out.println("Starting YldObjectCore...");
+		/*System.out.println("Starting YldObjectCore...");
 		objectCore = new YldObjectCore();
 		System.out.println("-----------///-----------");
-		System.out.println("YldObjectCore started!");
+		System.out.println("YldObjectCore started!");*/
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Yield started!");
 	}
