@@ -14,12 +14,12 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String GRAPHICS_ENGINE_VERSION = "1.1";
+	public final static String GRAPHICS_ENGINE_VERSION = "1.1.1";
 
 	private boolean running = true, refreshBuffers = true, pause = false;
 	private double targetFPS = 60, FPS = targetFPS, addX, addY, addWidth, addHeight;
 	private YldGraphical yldGraphical;
-	private int frames, width = 427, height = 240, numBuffers = 1, h, w;
+	private int frames, width = 427, height = 240, numBuffers = 1, h, w, xt;
 	private Thread thread;
 	private Graphics2D graphics2d;
 	private YldWindow window;
@@ -72,11 +72,16 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 	private void render() {
 		if (window != null) {
-			
+
 			requestFocus();
 
-			h = (int) (((double) getHeight()));
-			w = (int) ((double) h * ((double) getWWidth() / (double) getWHeight()));
+			h = getWHeight() + (window.getHeight() - getWHeight()) - window.getInsets().top - window.getInsets().left;
+			w = (int) (h * ((double) getWWidth() / (double) getWHeight()));
+			if (window.isFullscreen()) {
+				xt = window.getWidth() / 2 - w / 2;
+			} else {
+				xt = 0;
+			}
 
 			if (image.getWidth() != width || image.getHeight() != height) {
 				image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -102,22 +107,19 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 			yldGraphical.render(g);
 
-
 			///////////////////////////////////////////////////////////////////////////////////
 
 			g.transform(oldXForm);
-			
+
 			g.dispose();
 
 			g = (Graphics2D) bs.getDrawGraphics();
 
-			var h = getWHeight() + (window.getHeight() - getWHeight()) - window.getInsets().top - window.getInsets().left;
-			var w = h * ((double)getWWidth() / (double)getWHeight());
-
 			if (!pause) {
 				try {
-					g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
-				} catch (Exception e) {}
+					g.drawImage(image, (int) addX + xt, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
+				} catch (Exception e) {
+				}
 			}
 
 			bs.show();
