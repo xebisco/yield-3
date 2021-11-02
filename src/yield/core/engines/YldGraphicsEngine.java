@@ -14,7 +14,7 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String GRAPHICS_ENGINE_VERSION = "1.0";
+	public final static String GRAPHICS_ENGINE_VERSION = "1.1";
 
 	private boolean running = true, refreshBuffers = true, pause = false;
 	private double targetFPS = 60, FPS = targetFPS, addX, addY, addWidth, addHeight;
@@ -111,9 +111,12 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 			g = (Graphics2D) bs.getDrawGraphics();
 
+			var h = getWHeight() + (window.getHeight() - getWHeight()) - window.getInsets().top - window.getInsets().left;
+			var w = h * ((double)getWWidth() / (double)getWHeight());
+
 			if (!pause) {
 				try {
-					g.drawImage(image, (int) addX, (int) addY, (int) (((double)window.getHeight()) * ((double)getWHeight() / (double)getWWidth()) * 3 + addWidth), (int) (window.getHeight() - window.getInsets().top + addHeight), null);
+					g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
 				} catch (Exception e) {}
 			}
 
