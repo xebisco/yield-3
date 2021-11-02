@@ -14,7 +14,7 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String GRAPHICS_ENGINE_VERSION = "1.1.1";
+	public final static String GRAPHICS_ENGINE_VERSION = "1.1.1b";
 
 	private boolean running = true, refreshBuffers = true, pause = false;
 	private double targetFPS = 60, FPS = targetFPS, addX, addY, addWidth, addHeight;
@@ -68,7 +68,7 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 		}
 	}
 
-	BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+	BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 
 	private void render() {
 		if (window != null) {
