@@ -1,5 +1,6 @@
 package yieldg;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -7,6 +8,8 @@ import javax.imageio.ImageIO;
 
 public class YldSprite {
 	
+	public static final String SPRITE_VERSION = "1.1";
+
 	private BufferedImage image;
 	private static String iconPath = "/Yield Icon.png";
 	public String path, name;
@@ -64,6 +67,14 @@ public class YldSprite {
 	
 	public BufferedImage getBufferedImage() {
 		return image;
+	}
+
+	public void draw(int x, int y, Graphics2D g) {
+		g.drawImage(getBufferedImage(), x, y, null);
+	}
+
+	public void draw(int x, int y, int width, int height, Graphics2D g) {
+		g.drawImage(getBufferedImage(), x, y, width, height, null);
 	}
 
 	public YldSprite(BufferedImage image) {
