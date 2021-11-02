@@ -10,7 +10,7 @@ import yieldg.util.HotPoint;
 
 public class YldSprite {
 	
-	public static final String SPRITE_VERSION = "1.2";
+	public static final String SPRITE_VERSION = "1.2b";
 
 	private BufferedImage image;
 	private static String iconPath = "/Yield Icon.png";
@@ -72,7 +72,7 @@ public class YldSprite {
 	}
 
 	public void draw(int x, int y, Graphics2D g) {
-		g.drawImage(getBufferedImage(), x, y, null);
+		g.drawImage(getBufferedImage(), x + addX, y + addY, null);
 	}
 
 	public void draw(int x, int y, HotPoint hotPoint, Graphics2D g) {
@@ -97,7 +97,7 @@ public class YldSprite {
 		} else if (hotPoint.equals(HotPoint.DOWN_LEFT)) {
 			y = (int) (y - (double) height);
 		}
-		g.drawImage(getBufferedImage(), x, y, null);
+		g.drawImage(getBufferedImage(), x + addX, y + addY, null);
 	}
 
 	public void draw(int x, int y, int width, int height, HotPoint hotPoint, Graphics2D g) {
@@ -122,11 +122,11 @@ public class YldSprite {
 		} else if (hotPoint.equals(HotPoint.DOWN_LEFT)) {
 			y = (int) (y - (double) height);
 		}
-		g.drawImage(getBufferedImage(), x, y, width, height, null);
+		g.drawImage(getBufferedImage(), x + addX, y + addY, width, height, null);
 	}
 
 	public void draw(int x, int y, int width, int height, Graphics2D g) {
-		g.drawImage(getBufferedImage(), x, y, width, height, null);
+		g.drawImage(getBufferedImage(), x + addX, y + addY, width, height, null);
 	}
 
 	public YldSprite(BufferedImage image) {
