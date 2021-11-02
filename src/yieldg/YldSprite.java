@@ -6,9 +6,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import yieldg.util.HotPoint;
+
 public class YldSprite {
 	
-	public static final String SPRITE_VERSION = "1.1";
+	public static final String SPRITE_VERSION = "1.2";
 
 	private BufferedImage image;
 	private static String iconPath = "/Yield Icon.png";
@@ -71,6 +73,56 @@ public class YldSprite {
 
 	public void draw(int x, int y, Graphics2D g) {
 		g.drawImage(getBufferedImage(), x, y, null);
+	}
+
+	public void draw(int x, int y, HotPoint hotPoint, Graphics2D g) {
+		if (hotPoint.equals(HotPoint.MIDDLE)) {
+			x = (int) (x - (double) width / 2d);
+			y = (int) (y - (double) height / 2d);
+		} else if (hotPoint.equals(HotPoint.MIDDLE_LEFT)) {
+			y = (int) (y - (double) height / 2d);
+		} else if (hotPoint.equals(HotPoint.MIDDLE_RIGHT)) {
+			x = (int) (x + (double) width / 2d);
+			y = (int) (y - (double) height / 2d);
+		} else if (hotPoint.equals(HotPoint.UP)) {
+			x = (int) (x - (double) width / 2d);
+		} else if (hotPoint.equals(HotPoint.UP_RIGHT)) {
+			x = (int) (x - (double) width);
+		} else if (hotPoint.equals(HotPoint.DOWN)) {
+			x = (int) (x - (double) width / 2d);
+			y = (int) (y - (double) height);
+		} else if (hotPoint.equals(HotPoint.DOWN_RIGHT)) {
+			x = (int) (x - (double) width);
+			y = (int) (y - (double) height);
+		} else if (hotPoint.equals(HotPoint.DOWN_LEFT)) {
+			y = (int) (y - (double) height);
+		}
+		g.drawImage(getBufferedImage(), x, y, null);
+	}
+
+	public void draw(int x, int y, int width, int height, HotPoint hotPoint, Graphics2D g) {
+		if (hotPoint.equals(HotPoint.MIDDLE)) {
+			x = (int) (x - (double) width / 2d);
+			y = (int) (y - (double) height / 2d);
+		} else if (hotPoint.equals(HotPoint.MIDDLE_LEFT)) {
+			y = (int) (y - (double) height / 2d);
+		} else if (hotPoint.equals(HotPoint.MIDDLE_RIGHT)) {
+			x = (int) (x + (double) width / 2d);
+			y = (int) (y - (double) height / 2d);
+		} else if (hotPoint.equals(HotPoint.UP)) {
+			x = (int) (x - (double) width / 2d);
+		} else if (hotPoint.equals(HotPoint.UP_RIGHT)) {
+			x = (int) (x - (double) width);
+		} else if (hotPoint.equals(HotPoint.DOWN)) {
+			x = (int) (x - (double) width / 2d);
+			y = (int) (y - (double) height);
+		} else if (hotPoint.equals(HotPoint.DOWN_RIGHT)) {
+			x = (int) (x - (double) width);
+			y = (int) (y - (double) height);
+		} else if (hotPoint.equals(HotPoint.DOWN_LEFT)) {
+			y = (int) (y - (double) height);
+		}
+		g.drawImage(getBufferedImage(), x, y, width, height, null);
 	}
 
 	public void draw(int x, int y, int width, int height, Graphics2D g) {
