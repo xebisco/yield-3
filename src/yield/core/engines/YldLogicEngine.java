@@ -5,19 +5,19 @@ import yield.exceptions.YldLogicException;
 
 public final class YldLogicEngine implements Runnable {
 
-	
-	public final static String LOGIC_ENGINE_VERSION = "1.0";
-	
+	public final static String LOGIC_ENGINE_VERSION = "2.0";
+
+	private YldGraphicsEngine graphicsEngine;
 	private boolean running = true;
 	private double targetTPS = 60, TPS = targetTPS;
 	private YldLogical yldLogical;
 	private int ticks;
 	private Thread thread;
-	
+
 	public YldLogicEngine(YldLogical yldLogical) {
 		this.yldLogical = yldLogical;
 		thread = new Thread(this);
-		thread.setName("YieldLogicThread");
+		thread.setName("YieldThread");
 		thread.start();
 	}
 
@@ -38,6 +38,8 @@ public final class YldLogicEngine implements Runnable {
 
 				if (deltaT >= 1) {
 					yldLogical.update();
+					if (graphicsEngine != null)
+						graphicsEngine.repaint();
 					ticks++;
 					this.ticks++;
 					deltaT--;
@@ -47,13 +49,33 @@ public final class YldLogicEngine implements Runnable {
 					TPS = ticks;
 					ticks = 0;
 					timer += 1000;
-				}	
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new YldLogicException(e.getMessage());
 			}
 
 		}
+	}
+
+	public static String getLogicEngineVersion() {
+		return LOGIC_ENGINE_VERSION;
+	}
+
+	public YldGraphicsEngine getGraphicsEngine() {
+		return graphicsEngine;
+	}
+
+	public void setGraphicsEngine(YldGraphicsEngine graphicsEngine) {
+		this.graphicsEngine = graphicsEngine;
+	}
+
+	public Thread getThread() {
+		return thread;
+	}
+
+	public void setThread(Thread thread) {
+		this.thread = thread;
 	}
 
 	/**

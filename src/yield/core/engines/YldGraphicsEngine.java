@@ -1,20 +1,20 @@
 package yield.core.engines;
 
-import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JPanel;
+
 import yield.core.engines.interfaces.YldGraphical;
-import yield.exceptions.YldGraphicsException;
 import yieldg.window.YldWindow;
 
-public final class YldGraphicsEngine extends Canvas implements Runnable {
+public final class YldGraphicsEngine extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String GRAPHICS_ENGINE_VERSION = "1.1.1b";
+	public final static String GRAPHICS_ENGINE_VERSION = "2";
 
 	private boolean running = true, refreshBuffers = true, pause = false;
 	private double targetFPS = 60, FPS = targetFPS, addX, addY, addWidth, addHeight;
@@ -26,52 +26,17 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 	public YldGraphicsEngine(YldGraphical yldGraphical) {
 		this.yldGraphical = yldGraphical;
-		thread = new Thread(this);
-		thread.setName("YieldGraphicsThread");
-		thread.start();
 	}
+
+	BufferedImage image;
 
 	@Override
-	public void run() {
-		long initialTime = System.nanoTime();
-		double timeF = 0;
-		int frames = 0;
-		double deltaF = 0;
-		long timer = System.currentTimeMillis();
-		this.createBufferStrategy(numBuffers);
-		while (running) {
-			try {
-				timeF = 1000000000d / targetFPS;
-
-				long currentTime = System.nanoTime();
-				deltaF += (currentTime - initialTime) / timeF;
-				initialTime = currentTime;
-
-				if (deltaF >= 1) {
-					if (frames > 0)
-						render();
-					frames++;
-					this.frames++;
-					deltaF--;
-				}
-
-				if (System.currentTimeMillis() - timer > 1000d) {
-					FPS = frames;
-					frames = 0;
-					timer += 1000;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new YldGraphicsException(e.getMessage());
-			}
-
-		}
-	}
-
-	BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-
-	private void render() {
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		if (window != null) {
+
+			g.setColor(Color.black);
+			g.fillRect(0, 0, window.getWidth(), window.getHeight());
 
 			requestFocus();
 
@@ -83,47 +48,44 @@ public final class YldGraphicsEngine extends Canvas implements Runnable {
 				xt = 0;
 			}
 
-			if (image.getWidth() != width || image.getHeight() != height) {
+			if (image == null || image.getWidth() != width || image.getHeight() != height) {
 				image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			}
 
-			BufferStrategy bs = this.getBufferStrategy();
+			image.setAccelerationPriority(1);
 
-			if (refreshBuffers) {
-				refreshBuffers = false;
-				this.createBufferStrategy(numBuffers);
-				return;
-			}
+			Graphics2D gii = image.createGraphics();
 
-			Graphics2D g = image.createGraphics();
-
-			g.clearRect(0, 0, width, height);
-
-			AffineTransform oldXForm = g.getTransform();
+			gii.setColor(Color.black);
+			gii.fillRect(0, 0, width, height);
 
 			//////////////////////////////////////////////////////////////////////////////////
 
-			setGraphics2d(g);
+			setGraphics2d(gii);
 
-			yldGraphical.render(g);
+			yldGraphical.render(gii);
 
 			///////////////////////////////////////////////////////////////////////////////////
 
-			g.transform(oldXForm);
-
-			g.dispose();
-
-			g = (Graphics2D) bs.getDrawGraphics();
+			gii.dispose();
 
 			if (!pause) {
 				try {
-					g.drawImage(image, (int) addX + xt, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
+					g.drawImage(image, (int) addX + xt, (int) addY, (int) (w + addWidth), (int) (h + addHeight), this);
 				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 
-			bs.show();
+			image.flush();
+
+			// g.dispose();
 		}
+	}
+
+	@Override
+	public void update(Graphics g) {
+		paintComponent(g);
 	}
 
 	/**

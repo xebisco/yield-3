@@ -13,6 +13,6 @@ public class YldObject {
         }
     };
 
-    private boolean active = true;
+   // private boolean active = true;
     
 }

@@ -10,7 +10,7 @@
 				"${dependencies}"
 			],
 			"problemMatcher": [],
-			"label": "java: exportjar:yieldgit",
+			"label": "java: exportjar:Yield",
 			"group": {
 				"kind": "build",
 				"isDefault": true
