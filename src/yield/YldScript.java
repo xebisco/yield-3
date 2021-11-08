@@ -71,7 +71,7 @@ public abstract class YldScript {
 		YldExclusiveEngine exclusiveEngine = new YldExclusiveEngine();
 		exclusiveEngine.setAction(action);
 		exclusiveEngine.start();
-
+		action = null;
 	}
 
 	public static void callMethod(String methodText, YldScript script) {
