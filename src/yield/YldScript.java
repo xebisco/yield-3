@@ -3,9 +3,13 @@ package yield;
 import java.lang.reflect.Method;
 
 import yield.core.YldCore;
+import yield.core.engines.exclusive.YldExclusiveEngine;
+import yield.core.engines.exclusive.interfaces.YldExclusiveAction;
 import yield.exceptions.YldCallMethodException;
 
 public abstract class YldScript {
+
+	public static final String SCRIPT_VERSION = "1.1";
 
 	private int layer = -1;
 
@@ -58,6 +62,16 @@ public abstract class YldScript {
 		} else {
 			tick();
 		}
+	}
+
+	/**
+	 * @since yield 3.4
+	 */
+	public void callExclusive(YldExclusiveAction action) {
+		YldExclusiveEngine exclusiveEngine = new YldExclusiveEngine();
+		exclusiveEngine.setAction(action);
+		exclusiveEngine.start();
+
 	}
 
 	public static void callMethod(String methodText, YldScript script) {

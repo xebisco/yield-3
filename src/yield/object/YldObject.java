@@ -1,18 +1,26 @@
 package yield.object;
 
-import yield.YldScript;
+import yield.object.scripts.YldGenericObjectScript;
 
 /**
  * NOT FINISHED!
  */
 public class YldObject {
 
-    YldScript objectScript = new YldScript() {
-        public String tag() {
-            return "ObjectScript";
-        }
-    };
+    private YldGenericObjectScript object;
 
-   // private boolean active = true;
-    
+    public YldObject() {
+        
+    }
+
+    public YldGenericObjectScript getObject() {
+        return object;
+    }
+
+    public void setObject(YldGenericObjectScript object) {
+        this.object = object;
+    }
+
+    // private boolean active = true;
+
 }

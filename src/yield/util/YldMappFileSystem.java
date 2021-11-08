@@ -3,11 +3,44 @@ package yield.util;
 import java.io.IOException;
 
 import yieldg.YldSprite;
+import yieldg.util.YldSpriteArray;
 import yieldg.util.YldSpriteList;
 
 public final class YldMappFileSystem {
 
+	public static final String MAPP_FILE_SYSTEM_VERSION = "1.1";
+
 	public static YldSpriteList fromPath(String path) {
+		YldSpriteList mappFile_list = getListFromMapp(path);
+
+		return mappFile_list;
+	}
+
+	public static YldSpriteArray toSpriteArray(String path) {
+		YldSpriteList mappFile_list = getListFromMapp(path);
+
+		YldSpriteArray mappFile_array = new YldSpriteArray(mappFile_list.size());
+
+		for(int i = 0; i < mappFile_list.size(); i++) {
+			mappFile_array.list[i] = mappFile_list.list.get(i);
+		}
+
+		return mappFile_array;
+	}
+
+	public static YldSprite[] toArray(String path) {
+		YldSpriteList mappFile_list = getListFromMapp(path);
+
+		YldSprite[] mappFile_array = new YldSprite[mappFile_list.size()];
+
+		for(int i = 0; i < mappFile_list.size(); i++) {
+			mappFile_array[i] = mappFile_list.list.get(i);
+		}
+
+		return mappFile_array;
+	}
+
+	private static YldSpriteList getListFromMapp(String path) {
 		YldSprite mappFile_mum = null;
 		int mappFile_x = 0, mappFile_y = 0, mappFile_width = 1, mappFile_height = 1, mappFile_ax = 0, mappFile_ay = 0;
 		String mappFile_actname = "";

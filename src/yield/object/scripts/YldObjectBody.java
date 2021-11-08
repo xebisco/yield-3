@@ -5,15 +5,12 @@ import yield.YldBody;
 /**
  * NOT FINISHED!
  */
-public final class ObjBody extends YldBody {
+public final class YldObjectBody extends YldBody {
 
-    public static ObjBody mainObjBody;
+    public static YldObjectBody mainObjBody;
 
     @Override
     public void awake() {
-        if (ObjRoom.mainObjRoom == null) {
-            ObjRoom.mainObjRoom = new ObjRoom();
-        }
         if (mainObjBody == null) {
             mainObjBody = this;
         }

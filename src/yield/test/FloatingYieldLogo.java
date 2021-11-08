@@ -3,6 +3,7 @@ package yield.test;
 import java.awt.Color;
 
 import yield.YldGScript;
+import yield.core.engines.exclusive.interfaces.YldExclusiveAction;
 import yield.util.YldTime;
 import yield.util.input.YldMainInputs;
 import yieldg.YldSprite;
@@ -15,7 +16,7 @@ public class FloatingYieldLogo {
 
 	boolean controlling = false;
 
-	YldSprite logoSprite = new YldSprite("/Yield Presentation.png");
+	YldSprite logoSprite;
 
 	YldGScript logoScript = new YldGScript() {
 
@@ -24,8 +25,17 @@ public class FloatingYieldLogo {
 			return "logoScript";
 		}
 
+		public void start() {
+			callExclusive(new YldExclusiveAction() {
+				@Override
+				public void onAction() {
+					logoSprite = new YldSprite("/Yield Presentation.png");
+				}
+			});
+		}
+
 		public void tick() {
-			
+
 			if (YldMainInputs.horizontal != 0 || YldMainInputs.vertical != 0) {
 				controlling = true;
 			}
@@ -61,7 +71,10 @@ public class FloatingYieldLogo {
 		public void render(java.awt.Graphics2D g) {
 			g.setColor(Color.darkGray);
 			g.fillRect(0, 0, yld.getYldGraphicsEngine().getWWidth(), yld.getYldGraphicsEngine().getWHeight());
-			g.drawImage(logoSprite.getBufferedImage(), (int) x, (int) y, width, height, null);
+			try {
+				logoSprite.draw((int) x, (int) y, width, height, g);
+			} catch (Exception e) {
+			}
 
 		}
 

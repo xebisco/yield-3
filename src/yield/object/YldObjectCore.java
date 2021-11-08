@@ -5,7 +5,9 @@ import java.util.List;
 
 import yield.YldScript;
 
-
+/**
+ * NOT FINISHED
+ */
 public class YldObjectCore {
 
     private List<YldObject> objects;

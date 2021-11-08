@@ -6,11 +6,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import yieldg.util.HotPoint;
-
 public class YldSprite {
-	
-	public static final String SPRITE_VERSION = "1.2b";
+
+	public static final String SPRITE_VERSION = "1.2c";
 
 	private BufferedImage image;
 	private static String iconPath = "/Yield Icon.png";
@@ -20,15 +18,15 @@ public class YldSprite {
 	public int addX, addY;
 
 	public YldSprite(String path) {
-		if(path.charAt(0) != '/' && path != "yieldlogo") {
+		if (path.charAt(0) != '/' && path != "yieldlogo") {
 			path = "/" + path;
 		}
 		try {
 			this.image = ImageIO.read(getClass().getResource(path));
 			this.path = path;
 		} catch (Exception e) {
-			if(path != "yieldlogo")
-			System.out.println("Can't find " + path + " image.");
+			if (path != "yieldlogo")
+				System.out.println("Can't find " + path + " image.");
 			try {
 				this.image = ImageIO.read(getClass().getResource(getIconPath()));
 				this.path = getIconPath();
@@ -43,16 +41,16 @@ public class YldSprite {
 	}
 
 	public YldSprite(String path, String name) {
-		if(path.charAt(0) != '/') {
-			if(path != "yieldlogo")
-			path = "/" + path;
+		if (path.charAt(0) != '/') {
+			if (path != "yieldlogo")
+				path = "/" + path;
 		}
 		try {
 			this.image = ImageIO.read(getClass().getResource(path));
 			this.path = path;
 		} catch (Exception e) {
-			if(path != "yieldlogo")
-			System.out.println("Can't find " + getClass().getResource(path) + " image.");
+			if (path != "yieldlogo")
+				System.out.println("Can't find " + getClass().getResource(path) + " image.");
 			try {
 				this.image = ImageIO.read(getClass().getResource(getIconPath()));
 				this.path = getIconPath();
@@ -66,7 +64,6 @@ public class YldSprite {
 		this.name = name;
 	}
 
-	
 	public BufferedImage getBufferedImage() {
 		return image;
 	}
@@ -136,7 +133,7 @@ public class YldSprite {
 		this.width = (this.image.getWidth());
 		this.name = image.toString();
 	}
-	
+
 	public YldSprite(BufferedImage image, String name) {
 		this.image = image;
 
@@ -150,6 +147,10 @@ public class YldSprite {
 		return ren;
 	}
 
+	public static enum HotPoint {
+		NONE, MIDDLE, MIDDLE_RIGHT, MIDDLE_LEFT, UP_LEFT, UP, UP_RIGHT, DOWN, DOWN_LEFT, DOWN_RIGHT;
+	}
+
 	public static String getIconPath() {
 		return iconPath;
 	}
@@ -157,7 +158,5 @@ public class YldSprite {
 	public static void setIconPath(String iconPath) {
 		YldSprite.iconPath = iconPath;
 	}
-	
-	
-	
+
 }
