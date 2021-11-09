@@ -14,7 +14,7 @@ public final class YldGraphicsEngine extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String GRAPHICS_ENGINE_VERSION = "2";
+	public final static String GRAPHICS_ENGINE_VERSION = "2b";
 
 	private boolean running = true, refreshBuffers = true, pause = false;
 	private double targetFPS = 60, FPS = targetFPS, addX, addY, addWidth, addHeight;
@@ -71,7 +71,7 @@ public final class YldGraphicsEngine extends JPanel {
 
 			if (!pause) {
 				try {
-					g.drawImage(image, (int) addX + xt, (int) addY, (int) (w + addWidth), (int) (h + addHeight), this);
+					g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), this);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -409,4 +409,14 @@ public final class YldGraphicsEngine extends JPanel {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+
+	public int getXt() {
+		return xt;
+	}
+
+	public void setXt(int xt) {
+		this.xt = xt;
+	}
+
+	
 }
