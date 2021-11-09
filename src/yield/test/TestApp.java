@@ -13,8 +13,4 @@ public class TestApp extends YldApp {
 		new FloatingYieldLogo();
 	}
 
-	public static void main(String[] args) {
-		new TestApp();
-	}
-
 }
