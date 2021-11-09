@@ -67,7 +67,7 @@ public abstract class YldScript {
 	/**
 	 * @since yield 3.4
 	 */
-	public void callExclusive(YldExclusiveAction action) {
+	public static void callExclusive(YldExclusiveAction action) {
 		YldExclusiveEngine exclusiveEngine = new YldExclusiveEngine();
 		exclusiveEngine.setAction(action);
 		exclusiveEngine.start();
