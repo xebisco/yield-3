@@ -25,8 +25,6 @@ import yieldg.YldSprite;
  */
 public class YldCore implements YldLogical, YldGraphical {
 
-	public final static String CORE_VERSION = "1.0.2";
-
 	public static boolean yieldpresentation;
 	public YldApp app;
 
