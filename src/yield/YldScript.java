@@ -12,8 +12,6 @@ import yield.exceptions.YldCallMethodException;
  */
 public abstract class YldScript {
 
-	public static final String SCRIPT_VERSION = "1.1";
-
 	private int layer = -1;
 
 	private int frames;
