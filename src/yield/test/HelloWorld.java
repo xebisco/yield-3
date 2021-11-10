@@ -20,8 +20,4 @@ public class HelloWorld extends YldApp {
         new HelloWorld();
     }
 
-    public HelloWorld() {
-        run();
-    }
-
 }
