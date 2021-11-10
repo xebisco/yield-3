@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * Lê arquivos
+ */
 public final class YldReader {
 	
 	public static YldReader reader;

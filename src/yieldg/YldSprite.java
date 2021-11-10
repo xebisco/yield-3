@@ -6,9 +6,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class YldSprite {
+import yieldg.util.HotPoint;
 
-	public static final String SPRITE_VERSION = "1.2c";
+/**
+ * Carrega arquivos de imagem e armazena eles
+ */
+public class YldSprite {
 
 	private BufferedImage image;
 	private static String iconPath = "/Yield Icon.png";
@@ -145,10 +148,6 @@ public class YldSprite {
 	public YldSprite getSpriteint(int x, int y, int width, int height) {
 		YldSprite ren = new YldSprite(this.image.getSubimage(x, y, width, height));
 		return ren;
-	}
-
-	public static enum HotPoint {
-		NONE, MIDDLE, MIDDLE_RIGHT, MIDDLE_LEFT, UP_LEFT, UP, UP_RIGHT, DOWN, DOWN_LEFT, DOWN_RIGHT;
 	}
 
 	public static String getIconPath() {

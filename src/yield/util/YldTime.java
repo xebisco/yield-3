@@ -4,6 +4,9 @@ import java.awt.Graphics2D;
 
 import yield.YldGScript;
 
+/**
+ * Contem todas as informações sobre o tempo o primeiro YldCore criado.
+ */
 public final class YldTime extends YldGScript {
 
 	@Override

@@ -3,9 +3,12 @@ package yield.core.engines;
 import yield.core.engines.interfaces.YldLogical;
 import yield.exceptions.YldLogicException;
 
+/**
+ * Essa engine serve para criar um game loop e enviar para um YldLogical.
+ */
 public final class YldLogicEngine implements Runnable {
 
-	public final static String LOGIC_ENGINE_VERSION = "2.0";
+	public final static String LOGIC_ENGINE_VERSION = "2b";
 
 	private YldGraphicsEngine graphicsEngine;
 	private boolean running = true;
@@ -39,7 +42,7 @@ public final class YldLogicEngine implements Runnable {
 				if (deltaT >= 1) {
 					yldLogical.update();
 					if (graphicsEngine != null)
-						graphicsEngine.repaint();
+						graphicsEngine.render();
 					ticks++;
 					this.ticks++;
 					deltaT--;

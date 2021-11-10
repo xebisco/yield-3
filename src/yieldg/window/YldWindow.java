@@ -3,12 +3,16 @@ package yieldg.window;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
 import yieldg.YldSprite;
 
+/**
+ * Uma implementação do JFrame feita para a Yield.
+ */
 public class YldWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 

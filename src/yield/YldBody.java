@@ -3,6 +3,9 @@ package yield;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Uma coletânia de YldScripts
+ */
 public abstract class YldBody {
 	
 	private List<YldScript> scriptList;

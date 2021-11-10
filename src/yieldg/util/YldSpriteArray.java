@@ -2,6 +2,9 @@ package yieldg.util;
 
 import yieldg.YldSprite;
 
+/**
+ * Uma coletânia de YldSprites em formato de Array
+ */
 public class YldSpriteArray {
 
     public YldSprite[] list;

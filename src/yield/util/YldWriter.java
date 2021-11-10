@@ -8,6 +8,9 @@ import java.nio.channels.FileChannel;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 
+/**
+ * Escreve arquivos.
+ */
 public final class YldWriter {
 
 	public static YldWriter writer;

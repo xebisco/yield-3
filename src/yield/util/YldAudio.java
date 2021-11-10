@@ -11,6 +11,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import yield.YldScript;
 
+/**
+ * Essa classe é utilizada para carregar e tocar arquivos de áudio.
+ */
 public class YldAudio extends YldScript {
 
 	@Override

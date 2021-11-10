@@ -1,5 +1,8 @@
 package yield;
 
+/**
+ * Uma coletânia de YldBodies.
+ */
 public final class YldRoom {
 	
 	private static YldRoom actRoom;

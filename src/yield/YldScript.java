@@ -7,6 +7,9 @@ import yield.core.engines.exclusive.YldExclusiveEngine;
 import yield.core.engines.exclusive.interfaces.YldExclusiveAction;
 import yield.exceptions.YldCallMethodException;
 
+/**
+ * Onde todo o código do jogo é escrito, todo objeto com ações em frames da Yield é um YldScript.
+ */
 public abstract class YldScript {
 
 	public static final String SCRIPT_VERSION = "1.1";

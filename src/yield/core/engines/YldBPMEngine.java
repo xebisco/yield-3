@@ -2,6 +2,9 @@ package yield.core.engines;
 
 import yield.core.engines.interfaces.YldBPM;
 
+/**
+ * Essa engine serve para criar um game loop por bpm e enviar para um YldBPM.
+ */
 public final class YldBPMEngine implements Runnable {
 
 	public final static String BPM_ENGINE_VERSION = "1.0";

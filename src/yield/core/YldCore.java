@@ -20,6 +20,9 @@ import yield.util.YldReader;
 import yield.util.YldWriter;
 import yieldg.YldSprite;
 
+/**
+ * O YldCore é o coração do jogo, ele que manda para todos os objetos o que as engines fazem.
+ */
 public class YldCore implements YldLogical, YldGraphical {
 
 	public final static String CORE_VERSION = "1.0.2";
@@ -30,7 +33,7 @@ public class YldCore implements YldLogical, YldGraphical {
 	private List<YldScript> yldScripts;
 	private YldLogicEngine yldLogicEngine;
 	private YldGraphicsEngine yldGraphicsEngine;
-	public int TPS, FPS;
+	public int TPS, FPS, width, height;
 	private YldSprite yieldlogo = new YldSprite("/YieldP.png");
 
 	public YldCore() {
@@ -79,6 +82,8 @@ public class YldCore implements YldLogical, YldGraphical {
 	@Override
 	public void render(Graphics2D g) {
 		TPS = (int) yldGraphicsEngine.getFPS();
+		width = yldGraphicsEngine.getWWidth();
+		height = yldGraphicsEngine.getWHeight();
 		int n = 0;
 		if (yldScripts != null) {
 			for (int i = 0; i < yldScripts.size(); i++) {

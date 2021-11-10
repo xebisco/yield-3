@@ -11,6 +11,9 @@ import java.awt.event.MouseWheelListener;
 import yield.YldApp;
 import yield.YldScript;
 
+/**
+ * Essa classe é utilizada para localizar e obter ações do ponteiro do mouse um uma janela.
+ */
 public class YldMouse extends YldScript implements MouseListener, MouseWheelListener {
 
 	@Override

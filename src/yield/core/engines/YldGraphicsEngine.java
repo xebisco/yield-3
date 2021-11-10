@@ -1,20 +1,22 @@
 package yield.core.engines;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Canvas;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JPanel;
 
 import yield.core.engines.interfaces.YldGraphical;
 import yieldg.window.YldWindow;
 
-public final class YldGraphicsEngine extends JPanel {
+/**
+ * Essa engine serve para criar graficos e enviar para um YldGraphical.
+ */
+public final class YldGraphicsEngine extends Canvas {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String GRAPHICS_ENGINE_VERSION = "2b";
+	public final static String GRAPHICS_ENGINE_VERSION = "1.1.1b";
 
 	private boolean running = true, refreshBuffers = true, pause = false;
 	private double targetFPS = 60, FPS = targetFPS, addX, addY, addWidth, addHeight;
@@ -28,15 +30,10 @@ public final class YldGraphicsEngine extends JPanel {
 		this.yldGraphical = yldGraphical;
 	}
 
-	BufferedImage image;
+	BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	public void render() {
 		if (window != null) {
-
-			g.setColor(Color.black);
-			g.fillRect(0, 0, window.getWidth(), window.getHeight());
 
 			requestFocus();
 
@@ -48,44 +45,47 @@ public final class YldGraphicsEngine extends JPanel {
 				xt = 0;
 			}
 
-			if (image == null || image.getWidth() != width || image.getHeight() != height) {
+			if (image.getWidth() != width || image.getHeight() != height) {
 				image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			}
 
-			image.setAccelerationPriority(1);
+			BufferStrategy bs = this.getBufferStrategy();
 
-			Graphics2D gii = image.createGraphics();
+			if (refreshBuffers) {
+				refreshBuffers = false;
+				this.createBufferStrategy(numBuffers);
+				return;
+			}
 
-			gii.setColor(Color.black);
-			gii.fillRect(0, 0, width, height);
+			Graphics2D g = image.createGraphics();
+
+			g.clearRect(0, 0, width, height);
+
+			AffineTransform oldXForm = g.getTransform();
 
 			//////////////////////////////////////////////////////////////////////////////////
 
-			setGraphics2d(gii);
+			setGraphics2d(g);
 
-			yldGraphical.render(gii);
+			yldGraphical.render(g);
 
 			///////////////////////////////////////////////////////////////////////////////////
 
-			gii.dispose();
+			g.transform(oldXForm);
+
+			g.dispose();
+
+			g = (Graphics2D) bs.getDrawGraphics();
 
 			if (!pause) {
 				try {
-					g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), this);
+					g.drawImage(image, (int) addX + xt, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 
-			image.flush();
-
-			// g.dispose();
+			bs.show();
 		}
-	}
-
-	@Override
-	public void update(Graphics g) {
-		paintComponent(g);
 	}
 
 	/**
@@ -409,14 +409,4 @@ public final class YldGraphicsEngine extends JPanel {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
-	public int getXt() {
-		return xt;
-	}
-
-	public void setXt(int xt) {
-		this.xt = xt;
-	}
-
-	
 }

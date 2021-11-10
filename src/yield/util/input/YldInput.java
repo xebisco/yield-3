@@ -5,6 +5,9 @@ import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Essa classe contém todas as informações sobre o input do teclado da janela do jogo
+ */
 public final class YldInput implements KeyListener {
 
 	private static Set<String> keysSet;

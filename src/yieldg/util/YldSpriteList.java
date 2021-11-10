@@ -5,6 +5,9 @@ import java.util.List;
 
 import yieldg.YldSprite;
 
+/**
+ * Uma coletânia de YldSprites em formato de List
+ */
 public class YldSpriteList {
 	
 	public List<YldSprite> list;

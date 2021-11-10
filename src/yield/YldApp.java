@@ -10,14 +10,16 @@ import yield.util.input.YldInput;
 import yield.util.input.YldMouse;
 import yieldg.window.YldWindow;
 
+/**
+ * O YldApp é a classe onde o jogo inicia, ele inicia o YldCore e todas as suas dependências
+ */
 public abstract class YldApp {
 
-	public final static String YIELD_VERSION = "3.4c";
-	public final static String YLDAPP_VERSION = "1.2";
+	public final static String YIELD_VERSION = "3.5";
 
 	public static YldWindow window;
 	public static YldScript windowScript;
-	public static YldCore core;
+	public static YldCore core, yld;
 	protected static Dimension resolutionDimension, sizeDimension;
 	public static Dimension actSize;
 	public static YldObjectCore objectCore;
@@ -128,6 +130,7 @@ public abstract class YldApp {
 		objectCore = new YldObjectCore();
 		System.out.println("-----------///-----------");
 		System.out.println("YldObjectCore started!");*/
+		yld = core;
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Yield started!");
 	}
