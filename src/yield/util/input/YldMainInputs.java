@@ -9,7 +9,6 @@ public class YldMainInputs extends YldScript {
 
 	@Override
 	public String tag() {
-		load();
 		return "YldMainInputs";
 	}
 
