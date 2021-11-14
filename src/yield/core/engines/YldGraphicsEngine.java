@@ -409,4 +409,12 @@ public final class YldGraphicsEngine extends Canvas {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+
+	public int getXt() {
+		return xt;
+	}
+
+	public void setXt(int xt) {
+		this.xt = xt;
+	}
 }

@@ -35,7 +35,7 @@ public class YldMouse extends YldScript implements MouseListener, MouseWheelList
 	public void tick() {
 		PointerInfo a = MouseInfo.getPointerInfo();
 		Point b = a.getLocation();
-		mouseX = (b.getX() - (YldApp.window.getX() + YldApp.window.getInsets().left))
+		mouseX = (b.getX() - (YldApp.window.getX() + YldApp.window.getInsets().left + yld.getYldGraphicsEngine().getXt()))
 				* YldApp.core.getYldGraphicsEngine().getWWidth() / YldApp.core.getYldGraphicsEngine().getW();
 		mouseY = (b.getY() - (YldApp.window.getY() + (YldApp.window.getInsets().top)))
 				* YldApp.core.getYldGraphicsEngine().getWHeight() / YldApp.core.getYldGraphicsEngine().getH();

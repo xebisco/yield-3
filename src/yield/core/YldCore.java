@@ -19,193 +19,251 @@ import yield.core.engines.interfaces.YldLogical;
 import yield.util.YldReader;
 import yield.util.YldWriter;
 import yieldg.YldSprite;
+import yieldg.ui.YieldUI;
 
 /**
  * O YldCore é o coração do jogo, ele que manda para todos os objetos o que as engines fazem.
  */
 public class YldCore implements YldLogical, YldGraphical {
 
-	public static boolean yieldpresentation;
-	public YldApp app;
+    public static boolean yieldpresentation;
+    public YldApp app;
 
-	private List<YldScript> yldScripts;
-	private YldLogicEngine yldLogicEngine;
-	private YldGraphicsEngine yldGraphicsEngine;
-	public int TPS, FPS, width, height;
-	private YldSprite yieldlogo = new YldSprite("/YieldP.png");
+    private List<YldScript> yldScripts;
+    private YldLogicEngine yldLogicEngine;
+    private YldGraphicsEngine yldGraphicsEngine;
+    public int TPS, FPS, width, height;
+    private YldSprite yieldlogo = new YldSprite("/YieldP.png");
+    private YieldUI yieldUI;
 
-	public YldCore() {
-		yldScripts = new ArrayList<YldScript>();
-		YldWriter.writer = new YldWriter();
-		YldReader.reader = new YldReader();
-	}
+    public YldCore() {
+        yldScripts = new ArrayList<>();
+        YldWriter.writer = new YldWriter();
+        YldReader.reader = new YldReader();
+    }
 
-	public void startEngines() {
-		yldLogicEngine = new YldLogicEngine(this);
-		yldGraphicsEngine = new YldGraphicsEngine(this);
-		yldLogicEngine.setGraphicsEngine(yldGraphicsEngine);
-	}
+    public void startEngines() {
+        yldLogicEngine = new YldLogicEngine(this);
+        yldGraphicsEngine = new YldGraphicsEngine(this);
+        yldLogicEngine.setGraphicsEngine(yldGraphicsEngine);
+    }
 
-	@Override
-	public void update() {
-		TPS = (int) yldLogicEngine.getTPS();
-		
-		if (yldScripts != null) {
-			for (int i = 0; i < yldScripts.size(); i++) {
-				YldScript script = yldScripts.get(i);
-				if (script.getLayer() >= 0) {
-					if (script.getLayer() < yldScripts.size()) {
-						Collections.swap(yldScripts, script.getLayer(), i);
-					} else {
-						Collections.swap(yldScripts, yldScripts.size() - 1, i);
-					}
-					script.setLayer(-1);
-				}
-				if (script.getBody() != null) {
-					if (script.getBody().getRoom() != null) {
-						if (script.getBody().getRoom() == YldRoom.getActRoom()) {
-							script.update();
-						}
-					} else {
-						script.update();
-					}
-				} else {
-					script.update();
-				}
-			}
+    @Override
+    public void update() {
+        TPS = (int) yldLogicEngine.getTPS();
 
-		}
-	}
+        if (yldScripts != null) {
+            for (int i = 0; i < yldScripts.size(); i++) {
+                YldScript script = yldScripts.get(i);
+                if (script.getLayer() >= 0) {
+                    if (script.getLayer() < yldScripts.size()) {
+                        Collections.swap(yldScripts, script.getLayer(), i);
+                    } else {
+                        Collections.swap(yldScripts, yldScripts.size() - 1, i);
+                    }
+                    script.setLayer(-1);
+                }
+                if (script.getBody() != null) {
+                    if (script.getBody().getRoom() != null) {
+                        if (script.getBody().getRoom() == YldRoom.getActRoom()) {
+                            script.update();
+                        }
+                    } else {
+                        script.update();
+                    }
+                } else {
+                    script.update();
+                }
+            }
 
-	@Override
-	public void render(Graphics2D g) {
-		TPS = (int) yldGraphicsEngine.getFPS();
-		width = yldGraphicsEngine.getWWidth();
-		height = yldGraphicsEngine.getWHeight();
-		int n = 0;
-		if (yldScripts != null) {
-			for (int i = 0; i < yldScripts.size(); i++) {
-				YldScript script = yldScripts.get(i);
-				AffineTransform at = g.getTransform();
-				if (script instanceof YldGScript) {
-					n++;
-					if (script.getBody() != null) {
-						if (script.getBody().getRoom() != null) {
-							if (script.getBody().getRoom() == YldRoom.getActRoom()) {
-								((YldGScript) script).updateRender(g);
-							}
-						} else {
-							((YldGScript) script).updateRender(g);
-						}
-					} else {
-						((YldGScript) script).updateRender(g);
-					}
-					;
-				}
-				g.transform(at);			}
-		}
+        }
+    }
 
-		if (n <= 1 || yieldpresentation) {
-			g.clearRect(0, 0, yldGraphicsEngine.getWWidth(), yldGraphicsEngine.getWHeight());
-			g.drawImage(yieldlogo.getBufferedImage(),
-					(int) (yldGraphicsEngine.getWWidth() / 2
-							- (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667) / 1.9),
-					(int) (yldGraphicsEngine.getWHeight() / 2
-							- (int) ((double) yldGraphicsEngine.getWHeight() / 1.706666666666667) / 2.6), (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667),
-					(int) ((double) yldGraphicsEngine.getWHeight() / 2.4), null);
-			g.setFont(new Font("arial", 0, 10));
-			g.setColor(Color.white);
-			String string = "made by vtogames";
-			g.drawString(string, getYldGraphicsEngine().getWWidth() - g.getFontMetrics().stringWidth(string), getYldGraphicsEngine().getWHeight() - g.getFont().getSize() / 2);
-		}
-	}
+    @Override
+    public void render(Graphics2D g) {
+        TPS = (int) yldGraphicsEngine.getFPS();
+        width = yldGraphicsEngine.getWWidth();
+        height = yldGraphicsEngine.getWHeight();
+        int n = 0;
+        if (yldScripts != null) {
+            for (int i = 0; i < yldScripts.size(); i++) {
+                YldScript script = yldScripts.get(i);
+                AffineTransform at = g.getTransform();
+                if (script instanceof YldGScript) {
+                    n++;
+                    if (script.getBody() != null) {
+                        if (script.getBody().getRoom() != null) {
+                            if (script.getBody().getRoom() == YldRoom.getActRoom()) {
+                                ((YldGScript) script).updateRender(g);
+                            }
+                        } else {
+                            ((YldGScript) script).updateRender(g);
+                        }
+                    } else {
+                        ((YldGScript) script).updateRender(g);
+                    }
+                }
+                g.transform(at);
+            }
+        }
 
-	/**
-	 * @return the yldScripts
-	 */
-	public List<YldScript> getYldScripts() {
-		return yldScripts;
-	}
+        if (n <= 1 || yieldpresentation) {
+            g.clearRect(0, 0, yldGraphicsEngine.getWWidth(), yldGraphicsEngine.getWHeight());
+            g.drawImage(yieldlogo.getBufferedImage(),
+                    (int) (yldGraphicsEngine.getWWidth() / 2
+                            - (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667) / 1.9),
+                    (int) (yldGraphicsEngine.getWHeight() / 2
+                            - (int) ((double) yldGraphicsEngine.getWHeight() / 1.706666666666667) / 2.6), (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667),
+                    (int) ((double) yldGraphicsEngine.getWHeight() / 2.4), null);
+            g.setFont(new Font("arial", 0, 10));
+            g.setColor(Color.white);
+            String string = "made by vtogames";
+            g.drawString(string, getYldGraphicsEngine().getWWidth() - g.getFontMetrics().stringWidth(string), getYldGraphicsEngine().getWHeight() - g.getFont().getSize() / 2);
+        }
+    }
 
-	/**
-	 * @param yldScripts the yldScripts to set
-	 */
-	public void setYldScripts(List<YldScript> yldScripts) {
-		this.yldScripts = yldScripts;
-	}
+    /**
+     * @return the yldScripts
+     */
+    public List<YldScript> getYldScripts() {
+        return yldScripts;
+    }
 
-	/**
-	 * @param FPS the FPS to set
-	 */
-	public boolean changeFPS(double FPS) {
-		boolean success = true;
-		try {
-			yldGraphicsEngine.setTargetFPS(FPS);
-		} catch (Exception e) {
-			success = false;
-		}
-		return success;
-	}
+    /**
+     * @param yldScripts the yldScripts to set
+     */
+    public void setYldScripts(List<YldScript> yldScripts) {
+        this.yldScripts = yldScripts;
+    }
 
-	/**
-	 * @param TPS the TPS to set
-	 */
-	public boolean changeTPS(double TPS) {
-		boolean success = true;
-		try {
-			yldLogicEngine.setTargetTPS(TPS);
-		} catch (Exception e) {
-			success = false;
-		}
-		return success;
-	}
+    /**
+     * @param FPS the FPS to set
+     */
+    public boolean changeFPS(double FPS) {
+        boolean success = true;
+        try {
+            yldGraphicsEngine.setTargetFPS(FPS);
+        } catch (Exception e) {
+            success = false;
+        }
+        return success;
+    }
 
-	/**
-	 * @param yldScripts the yldScripts to set
-	 */
-	public boolean loadYldScript(YldScript yldScript) {
-		boolean success = true;
-		try {
-			yldScripts.add(yldScript);
-		} catch (Exception e) {
-			success = false;
-		}
-		return success;
-	}
+    /**
+     * @param TPS the TPS to set
+     */
+    public boolean changeTPS(double TPS) {
+        boolean success = true;
+        try {
+            yldLogicEngine.setTargetTPS(TPS);
+        } catch (Exception e) {
+            success = false;
+        }
+        return success;
+    }
 
-	/**
-	 * @return the yldLogicEngine
-	 */
-	public YldLogicEngine getYldLogicEngine() {
-		return yldLogicEngine;
-	}
+    public boolean loadYldScript(YldScript yldScript) {
+        boolean success = true;
+        try {
+            yldScripts.add(yldScript);
+        } catch (Exception e) {
+            success = false;
+        }
+        return success;
+    }
 
-	/**
-	 * @param yldLogicEngine the yldLogicEngine to set
-	 */
-	public void setYldLogicEngine(YldLogicEngine yldLogicEngine) {
-		this.yldLogicEngine = yldLogicEngine;
-	}
+    /**
+     * @return the yldLogicEngine
+     */
+    public YldLogicEngine getYldLogicEngine() {
+        return yldLogicEngine;
+    }
 
-	/**
-	 * @return the yldGraphicsEngine
-	 */
-	public YldGraphicsEngine getYldGraphicsEngine() {
-		return yldGraphicsEngine;
-	}
+    /**
+     * @param yldLogicEngine the yldLogicEngine to set
+     */
+    public void setYldLogicEngine(YldLogicEngine yldLogicEngine) {
+        this.yldLogicEngine = yldLogicEngine;
+    }
 
-	/**
-	 * @param yldGraphicsEngine the yldGraphicsEngine to set
-	 */
-	public void setYldGraphicsEngine(YldGraphicsEngine yldGraphicsEngine) {
-		this.yldGraphicsEngine = yldGraphicsEngine;
-	}
+    /**
+     * @return the yldGraphicsEngine
+     */
+    public YldGraphicsEngine getYldGraphicsEngine() {
+        return yldGraphicsEngine;
+    }
 
-	/**
-	 * @return the yieldlogo
-	 */
-	public YldSprite getYieldlogo() {
-		return yieldlogo;
-	}
+    /**
+     * @param yldGraphicsEngine the yldGraphicsEngine to set
+     */
+    public void setYldGraphicsEngine(YldGraphicsEngine yldGraphicsEngine) {
+        this.yldGraphicsEngine = yldGraphicsEngine;
+    }
 
+    /**
+     * @return the yieldlogo
+     */
+    public YldSprite getYieldlogo() {
+        return yieldlogo;
+    }
+
+    public static boolean isYieldpresentation() {
+        return yieldpresentation;
+    }
+
+    public static void setYieldpresentation(boolean yieldpresentation) {
+        YldCore.yieldpresentation = yieldpresentation;
+    }
+
+    public YldApp getApp() {
+        return app;
+    }
+
+    public void setApp(YldApp app) {
+        this.app = app;
+    }
+
+    public int getTPS() {
+        return TPS;
+    }
+
+    public void setTPS(int TPS) {
+        this.TPS = TPS;
+    }
+
+    public int getFPS() {
+        return FPS;
+    }
+
+    public void setFPS(int FPS) {
+        this.FPS = FPS;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setYieldlogo(YldSprite yieldlogo) {
+        this.yieldlogo = yieldlogo;
+    }
+
+    public YieldUI getYieldUI() {
+        return yieldUI;
+    }
+
+    public void setYieldUI(YieldUI yieldUI) {
+        this.yieldUI = yieldUI;
+    }
 }

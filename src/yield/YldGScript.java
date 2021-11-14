@@ -13,7 +13,7 @@ public abstract class YldGScript extends YldScript {
 		
 	}
 	
-	public final void updateRender(Graphics2D g) {
+	public void updateRender(Graphics2D g) {
 		if (getFrames() == 1) {
 			YldCore.yieldpresentation = false;
 		} else {

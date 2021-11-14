@@ -3,11 +3,13 @@ package yield;
 import java.awt.Dimension;
 import java.util.Locale;
 
+import jdk.jfr.Experimental;
 import yield.core.YldCore;
 import yield.object.YldObjectCore;
 import yield.util.YldTime;
 import yield.util.input.YldInput;
 import yield.util.input.YldMouse;
+import yieldg.ui.YieldUI;
 import yieldg.window.YldWindow;
 
 /**
@@ -24,6 +26,9 @@ public abstract class YldApp {
 	public static Dimension actSize;
 	public static YldObjectCore objectCore;
 	private static boolean canWindowSwitchToFullscreen = true;
+	@Experimental
+	/**NOT FINISHED*/
+	protected boolean startYieldUI = false;
 
 	public YldApp() {
 		Locale.setDefault(Locale.US);
@@ -131,6 +136,12 @@ public abstract class YldApp {
 		System.out.println("-----------///-----------");
 		System.out.println("YldObjectCore started!");*/
 		yld = core;
+		if(startYieldUI) {
+			System.out.println("-----------///-----------");
+			System.out.println("Starting YieldUI...");
+			core.setYieldUI(new YieldUI());
+			System.out.println("YieldUI started!");
+		}
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Yield started!");
 	}

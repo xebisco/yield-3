@@ -56,7 +56,7 @@ public abstract class YldScript {
 		return success;
 	}
 
-	public final void update() {
+	public void update() {
 		frames++;
 		if (frames == 1) {
 			start();
