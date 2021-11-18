@@ -139,6 +139,7 @@ public abstract class YldApp {
 		}
 		System.out.println("-----------///-----------");
 		System.out.println("Starting MappMain...");
+		//not create a MappMain obj
 		mapp.MappMain.startMappSystem();
 		System.out.println("MappMain started!");
 		System.out.println("\n-	-	-	-	-	-\n");
