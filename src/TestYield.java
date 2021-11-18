@@ -1,11 +1,9 @@
 import yield.YldApp;
-import mapp.*;
 
 public class TestYield extends YldApp {
 
     @Override
     public void start() {
-        startYieldUI = true;
         startYield();
     }
 

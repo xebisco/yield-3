@@ -3,7 +3,6 @@ package yield;
 import java.awt.Dimension;
 import java.util.Locale;
 
-import jdk.jfr.Experimental;
 import yield.core.YldCore;
 import yield.object.YldObjectCore;
 import yield.util.YldTime;
@@ -23,12 +22,13 @@ public abstract class YldApp {
 	public static YldScript windowScript;
 	public static YldCore core, yld;
 	protected static Dimension resolutionDimension, sizeDimension;
+	@SuppressWarnings("unused")
 	public static Dimension actSize;
+	@SuppressWarnings("unused")
 	public static YldObjectCore objectCore;
 	private static boolean canWindowSwitchToFullscreen = true;
-	@Experimental
 	/**NOT FINISHED*/
-	protected boolean startYieldUI = false;
+	protected boolean initUI = false;
 
 	public YldApp() {
 		Locale.setDefault(Locale.US);
@@ -112,11 +112,10 @@ public abstract class YldApp {
 							canPressF11 = false;
 							if (window.isFullscreen()) {
 								window.exitFullscreen();
-								window.setResizable(false);
 							} else {
 								window.toFullscreen();
-								window.setResizable(false);
 							}
+							window.setResizable(false);
 						}
 					} else {
 						canPressF11 = true;
@@ -131,17 +130,17 @@ public abstract class YldApp {
 		new YldTime();
 		System.out.println("YldTime created!");
 		core.getYldGraphicsEngine().setPause(false);
-		/*System.out.println("Starting YldObjectCore...");
-		objectCore = new YldObjectCore();
-		System.out.println("-----------///-----------");
-		System.out.println("YldObjectCore started!");*/
 		yld = core;
-		if(startYieldUI) {
+		if(initUI) {
 			System.out.println("-----------///-----------");
 			System.out.println("Starting YieldUI...");
 			core.setYieldUI(new YieldUI());
 			System.out.println("YieldUI started!");
 		}
+		System.out.println("-----------///-----------");
+		System.out.println("Starting MappMain...");
+		mapp.MappMain.startMappSystem();
+		System.out.println("MappMain started!");
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Yield started!");
 	}
@@ -153,14 +152,14 @@ public abstract class YldApp {
 
 	/**
 	 * @return the canWindowSwitchToFullscreen
-	 */
-	public static boolean isCanWindowSwitchToFullscreen() {
+	 */@SuppressWarnings("unused")	public static boolean isCanWindowSwitchToFullscreen() {
 		return canWindowSwitchToFullscreen;
 	}
 
 	/**
 	 * @param canWindowSwitchToFullscreen the canWindowSwitchToFullscreen to set
 	 */
+	@SuppressWarnings("unused")
 	public static void setCanWindowSwitchToFullscreen(boolean canWindowSwitchToFullscreen) {
 		YldApp.canWindowSwitchToFullscreen = canWindowSwitchToFullscreen;
 	}
