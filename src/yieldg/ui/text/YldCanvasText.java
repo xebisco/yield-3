@@ -1,10 +1,11 @@
 package yieldg.ui.text;
 
-import yield.YldGScript;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+
 import yieldg.ui.canvas.YldCanvasScript;
 import yieldg.util.HotPoint;
-
-import java.awt.*;
 
 /**
  * Esse YldScript mostrará um texto na janela

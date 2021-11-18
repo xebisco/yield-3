@@ -1,5 +1,7 @@
 package yieldg.ui;
 
+import java.awt.Color;
+
 import jdk.jfr.Experimental;
 import yield.YldApp;
 import yield.YldBody;
@@ -9,9 +11,6 @@ import yield.util.input.YldInput;
 import yieldg.YldSprite;
 import yieldg.ui.canvas.YldCanvas;
 import yieldg.ui.image.YldCanvasImage;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
 
 @Experimental
 /**NOT FINISHED*/

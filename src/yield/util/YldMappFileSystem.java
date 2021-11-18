@@ -9,6 +9,7 @@ import yieldg.util.YldSpriteList;
 /**
  * O YldMappFileSystem carrega informações de um arquivo .mapp e transforma em listas de Imagens.
  */
+@Deprecated
 public final class YldMappFileSystem {
 
 	public static final String MAPP_FILE_SYSTEM_VERSION = "1.1";

@@ -1,16 +1,13 @@
 package yieldg.ui.canvas;
 
-import yield.YldBody;
-import yield.YldGScript;
-import yield.YldScript;
-import yield.util.YldTime;
-
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import yield.YldBody;
+import yield.YldGScript;
 
 public class YldCanvas {
 

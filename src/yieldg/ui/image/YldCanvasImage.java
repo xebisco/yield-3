@@ -1,11 +1,10 @@
 package yieldg.ui.image;
 
-import yield.YldGScript;
+import java.awt.Graphics2D;
+
 import yieldg.YldSprite;
 import yieldg.ui.canvas.YldCanvasScript;
 import yieldg.util.HotPoint;
-
-import java.awt.*;
 
 public class YldCanvasImage extends YldCanvasScript {
 
