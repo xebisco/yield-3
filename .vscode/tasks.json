@@ -3,13 +3,22 @@
 	"tasks": [
 		{
 			"type": "java",
+<<<<<<< HEAD
 			"targetPath": "${workspaceFolder}/program/${workspaceFolderBasename}.jar",
+=======
+			"mainClass": "yield.test.TestApp",
+			"targetPath": "${workspaceFolder}/${workspaceFolderBasename}.jar",
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
 			"elements": [
 				"${compileOutput}",
 				"${dependencies}"
 			],
 			"problemMatcher": [],
+<<<<<<< HEAD
 			"label": "java: exportjar:yield",
+=======
+			"label": "java: exportjar:Yield",
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
 			"group": {
 				"kind": "build",
 				"isDefault": true
