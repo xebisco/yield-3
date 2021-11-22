@@ -6,7 +6,10 @@
     "configurations": [
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
+=======
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
 =======
 >>>>>>> parent of a3bb3e3 (Back to intellij!)
 =======
@@ -17,9 +20,12 @@
             "request": "launch",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             "mainClass": "${file}",
             "vmArgs": "--enable-preview"
 =======
+=======
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
 =======
 >>>>>>> parent of a3bb3e3 (Back to intellij!)
             "mainClass": "${file}"
@@ -31,6 +37,9 @@
             "mainClass": "yield.test.TestApp",
             "projectName": "yieldProject"
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
+=======
 >>>>>>> parent of a3bb3e3 (Back to intellij!)
 =======
 >>>>>>> parent of a3bb3e3 (Back to intellij!)
