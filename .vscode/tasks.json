@@ -4,7 +4,12 @@
 		{
 			"type": "java",
 <<<<<<< HEAD
+<<<<<<< HEAD
 			"targetPath": "${workspaceFolder}/program/${workspaceFolderBasename}.jar",
+=======
+			"mainClass": "yield.test.TestApp",
+			"targetPath": "${workspaceFolder}/${workspaceFolderBasename}.jar",
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
 =======
 			"mainClass": "yield.test.TestApp",
 			"targetPath": "${workspaceFolder}/${workspaceFolderBasename}.jar",
@@ -15,7 +20,11 @@
 			],
 			"problemMatcher": [],
 <<<<<<< HEAD
+<<<<<<< HEAD
 			"label": "java: exportjar:yield",
+=======
+			"label": "java: exportjar:Yield",
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
 =======
 			"label": "java: exportjar:Yield",
 >>>>>>> parent of a3bb3e3 (Back to intellij!)

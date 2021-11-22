@@ -4,7 +4,11 @@ import java.awt.Dimension;
 import java.util.Locale;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import mapp.MappMain;
+=======
+import jdk.jfr.Experimental;
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
 =======
 import jdk.jfr.Experimental;
 >>>>>>> parent of a3bb3e3 (Back to intellij!)
@@ -147,6 +151,7 @@ public abstract class YldApp {
 			System.out.println("YieldUI started!");
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		System.out.println("-----------///-----------");
 		System.out.println("Creating MappSystem...");
 		MappMain.startMappSystem();
@@ -154,6 +159,8 @@ public abstract class YldApp {
 		System.out.println("Starting MappMain...");
 		MappMain.startMappSystem();
 		System.out.println("MappMain started!");
+=======
+>>>>>>> parent of a3bb3e3 (Back to intellij!)
 =======
 >>>>>>> parent of a3bb3e3 (Back to intellij!)
 		System.out.println("\n-	-	-	-	-	-\n");
