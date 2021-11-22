@@ -17,7 +17,7 @@ import yieldg.window.YldWindow;
  */
 public abstract class YldApp {
 
-	public final static String YIELD_VERSION = "3.7.3";
+	public final static String YIELD_VERSION = "3.7";
 
 	public static YldWindow window;
 	public static YldScript windowScript;
@@ -142,9 +142,6 @@ public abstract class YldApp {
 		System.out.println("Creating MappSystem...");
 		MappMain.startMappSystem();
 		System.out.println("MappSystem created!");
-		System.out.println("Starting MappMain...");
-		MappMain.startMappSystem();
-		System.out.println("MappMain started!");
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Yield started!");
 	}
