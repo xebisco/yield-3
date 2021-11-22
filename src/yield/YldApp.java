@@ -29,7 +29,7 @@ import yieldg.window.YldWindow;
  */
 public abstract class YldApp {
 
-	public final static String YIELD_VERSION = "3.7.3";
+	public final static String YIELD_VERSION = "3.7.2";
 
 	public static YldWindow window;
 	public static YldScript windowScript;
