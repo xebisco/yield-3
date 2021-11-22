@@ -3,7 +3,7 @@ package yield;
 import java.awt.Dimension;
 import java.util.Locale;
 
-import jdk.jfr.Experimental;
+import mapp.MappMain;
 import yield.core.YldCore;
 import yield.object.YldObjectCore;
 import yield.util.YldTime;
@@ -17,7 +17,7 @@ import yieldg.window.YldWindow;
  */
 public abstract class YldApp {
 
-	public final static String YIELD_VERSION = "3.5";
+	public final static String YIELD_VERSION = "3.7";
 
 	public static YldWindow window;
 	public static YldScript windowScript;
@@ -26,9 +26,8 @@ public abstract class YldApp {
 	public static Dimension actSize;
 	public static YldObjectCore objectCore;
 	private static boolean canWindowSwitchToFullscreen = true;
-	@Experimental
 	/**NOT FINISHED*/
-	protected boolean startYieldUI = false;
+	protected boolean initUI = false;
 
 	public YldApp() {
 		Locale.setDefault(Locale.US);
@@ -136,12 +135,16 @@ public abstract class YldApp {
 		System.out.println("-----------///-----------");
 		System.out.println("YldObjectCore started!");*/
 		yld = core;
-		if(startYieldUI) {
+		if(initUI) {
 			System.out.println("-----------///-----------");
 			System.out.println("Starting YieldUI...");
 			core.setYieldUI(new YieldUI());
 			System.out.println("YieldUI started!");
 		}
+		System.out.println("-----------///-----------");
+		System.out.println("Creating MappSystem...");
+		MappMain.startMappSystem();
+		System.out.println("MappSystem created!");
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Yield started!");
 	}
