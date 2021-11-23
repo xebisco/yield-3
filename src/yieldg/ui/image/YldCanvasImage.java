@@ -23,7 +23,11 @@ public class YldCanvasImage extends YldCanvasScript {
 
     @Override
     public void draw(Graphics2D g) {
-        sprite.draw(x, y, hotPoint, g);
+        try {
+            sprite.draw(x, y, hotPoint, g);
+        } catch (Exception ignore) {
+            
+        }
     }
 
     public HotPoint getHotPoint() {
