@@ -23,7 +23,11 @@ public class YldImage extends YldGScript {
 
     @Override
     public void render(Graphics2D g) {
-        sprite.draw(x, y, hotPoint, g);
+        try {
+            sprite.draw(x, y, hotPoint, g);
+        } catch (Exception ignore) {
+
+        }
     }
 
     public HotPoint getHotPoint() {
@@ -58,6 +62,4 @@ public class YldImage extends YldGScript {
         this.sprite = sprite;
     }
 
-
-    
 }
