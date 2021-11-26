@@ -8,9 +8,9 @@ public abstract class YldCanvasScript extends YldGScript {
 
     private int canvasLayer = -1;
     private boolean draw = true;
+    protected YldCanvas canvas;
 
     public YldCanvasScript() {
-
     }
 
     public YldCanvasScript(YldCanvas canvas) {
@@ -42,4 +42,14 @@ public abstract class YldCanvasScript extends YldGScript {
     public void setDraw(boolean draw) {
         this.draw = draw;
     }
+
+    public YldCanvas getCanvas() {
+        return canvas;
+    }
+
+    public void setCanvas(YldCanvas canvas) {
+        this.canvas = canvas;
+    }
+
+    
 }

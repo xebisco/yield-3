@@ -5,19 +5,19 @@ import java.util.Locale;
 
 import mapp.MappMain;
 import yield.core.YldCore;
-import yield.object.YldObjectCore;
 import yield.util.YldTime;
 import yield.util.input.YldInput;
 import yield.util.input.YldMouse;
-import yieldg.ui.YieldUI;
+import yieldg.ui.YldPalette;
 import yieldg.window.YldWindow;
 
 /**
- * O YldApp é a classe onde o jogo inicia, ele inicia o YldCore e todas as suas dependências
+ * O YldApp é a classe onde o jogo inicia, ele inicia o YldCore e todas as suas
+ * dependências
  */
 public abstract class YldApp {
 
-	public final static String YIELD_VERSION = "3.7";
+	public final static String YIELD_VERSION = "3.8";
 
 	public static YldWindow window;
 	public static YldScript windowScript;
@@ -26,10 +26,9 @@ public abstract class YldApp {
 	@SuppressWarnings("unused")
 	public static Dimension actSize;
 	@SuppressWarnings("unused")
-	public static YldObjectCore objectCore;
 	private static boolean canWindowSwitchToFullscreen = true;
-	/**NOT FINISHED*/
-	protected boolean initUI = false;
+	/** NOT FINISHED */
+	protected boolean initUI = true;
 
 	public YldApp() {
 		Locale.setDefault(Locale.US);
@@ -132,16 +131,16 @@ public abstract class YldApp {
 		System.out.println("YldTime created!");
 		core.getYldGraphicsEngine().setPause(false);
 		yld = core;
-		if(initUI) {
+		if (initUI) {
 			System.out.println("-----------///-----------");
-			System.out.println("Starting YieldUI...");
-			core.setYieldUI(new YieldUI());
-			System.out.println("YieldUI started!");
+			System.out.println("Creating Global Palette...");
+			YldPalette.setGlobalPallete(new YldPalette());
+			System.out.println("Global Palette created!");
 		}
 		System.out.println("-----------///-----------");
-		System.out.println("Creating MappSystem...");
+		System.out.println("Starting MappSystem...");
 		MappMain.startMappSystem();
-		System.out.println("MappSystem created!");
+		System.out.println("MappSystem started!");
 		System.out.println("\n-	-	-	-	-	-\n");
 		System.out.println("Yield started!");
 	}
@@ -153,14 +152,14 @@ public abstract class YldApp {
 
 	/**
 	 * @return the canWindowSwitchToFullscreen
-	 */@SuppressWarnings("unused")	public static boolean isCanWindowSwitchToFullscreen() {
+	 */
+	public static boolean isCanWindowSwitchToFullscreen() {
 		return canWindowSwitchToFullscreen;
 	}
 
 	/**
 	 * @param canWindowSwitchToFullscreen the canWindowSwitchToFullscreen to set
 	 */
-	@SuppressWarnings("unused")
 	public static void setCanWindowSwitchToFullscreen(boolean canWindowSwitchToFullscreen) {
 		YldApp.canWindowSwitchToFullscreen = canWindowSwitchToFullscreen;
 	}

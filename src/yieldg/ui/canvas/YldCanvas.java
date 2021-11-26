@@ -1,20 +1,24 @@
 package yieldg.ui.canvas;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import yield.YldApp;
 import yield.YldBody;
 import yield.YldGScript;
+import yieldg.ui.canvas.input.YldCanvasMouse;
 
 public class YldCanvas {
 
     private BufferedImage canvasImage;
-    private int imageType = BufferedImage.TYPE_INT_ARGB;
+    private int imageType = BufferedImage.TYPE_INT_ARGB, width = 1280, height = 720;
     private YldBody canvasBody;
     private Graphics2D imageGraphics;
+    private YldCanvasMouse mouse;
     private List<YldCanvasScript> scripts;
     private int canvasLayer = 500;
 
@@ -23,14 +27,18 @@ public class YldCanvas {
     }
 
     public YldCanvas(int width, int height) {
-        canvasImage = new BufferedImage(width, height, imageType);
+        this.width = width;
+        this.height = height;
         start();
     }
 
     private void start() {
         scripts = new ArrayList<>();
-        if (canvasImage == null) {
-            canvasImage = new BufferedImage(1280, 720, imageType);
+        if (mouse == null) {
+            mouse = new YldCanvasMouse();
+            mouse.setResolution(new Dimension(width, height));
+            YldApp.yld.getYldGraphicsEngine().addMouseListener(mouse);
+            YldApp.yld.getYldGraphicsEngine().addMouseWheelListener(mouse);
         }
         canvasBody = new YldBody() {
             @Override
@@ -43,7 +51,7 @@ public class YldCanvas {
 
                     @Override
                     public void tick() {
-                        for(int i = 0; i < scripts.size(); i++) {
+                        for (int i = 0; i < scripts.size(); i++) {
                             YldCanvasScript script = scripts.get(i);
                             if (script.getCanvasLayer() >= 0) {
                                 if (script.getCanvasLayer() < scripts.size()) {
@@ -59,21 +67,23 @@ public class YldCanvas {
                     @Override
                     public void render(Graphics2D g) {
                         setLayer(canvasLayer);
-                        if (canvasImage != null) {
-                            imageGraphics = canvasImage.createGraphics();
-                            imageGraphics.clearRect(0, 0, canvasImage.getWidth(), canvasImage.getHeight());
-                            for (int i = 0; i < scripts.size(); i++) {
-                                YldCanvasScript script = scripts.get(i);
-                                if(script.isDraw())
-                                script.draw(imageGraphics);
+                        canvasImage = new BufferedImage(width, height, imageType);
+                        imageGraphics = canvasImage.createGraphics();
+                        for (int i = 0; i < scripts.size(); i++) {
+                            YldCanvasScript script = scripts.get(i);
+                            try {
+                                if (script.isDraw())
+                                    script.draw(imageGraphics);
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-
-                            imageGraphics.dispose();
-
-                            g.drawImage(canvasImage, 0, 0, yld.width, yld.height, null);
-
-                            canvasImage.flush();
                         }
+
+                        imageGraphics.dispose();
+
+                        g.drawImage(canvasImage, 0, 0, yld.width, yld.height, null);
+
+                        canvasImage.flush();
                     }
                 });
             }
@@ -82,6 +92,7 @@ public class YldCanvas {
 
     public void addScript(YldCanvasScript canvasScript) {
         scripts.add(canvasScript);
+        canvasScript.setCanvas(this);
     }
 
     public BufferedImage getCanvasImage() {
@@ -131,4 +142,13 @@ public class YldCanvas {
     public void setCanvasLayer(int canvasLayer) {
         this.canvasLayer = canvasLayer;
     }
+
+    public YldCanvasMouse getMouse() {
+        return mouse;
+    }
+
+    public void setMouse(YldCanvasMouse mouse) {
+        this.mouse = mouse;
+    }
+
 }

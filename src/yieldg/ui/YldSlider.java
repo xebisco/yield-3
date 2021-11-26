@@ -1,10 +1,9 @@
 package yieldg.ui;
 
-import yield.util.input.YldMouse;
+import java.awt.Graphics2D;
+
 import yieldg.ui.canvas.YldCanvas;
 import yieldg.ui.canvas.YldCanvasScript;
-
-import java.awt.*;
 
 public class YldSlider extends YldCanvasScript {
 
@@ -21,16 +20,16 @@ public class YldSlider extends YldCanvasScript {
     }
 
     private double x = 200, y = 200, width = 200, height = 5, clickerX = width / 1.3, clickerY, clickerWidth = 20, clickerOffset = 70, clickerHeight = 20, value;
-    private YldPalette palette;
+    private YldPalette palette = YldPalette.getGlobalPallete();
     private boolean pressed;
 
     @Override
     public void tick() {
         clickerY = y - clickerHeight / 2;
-        if (YldMouse.isPressing()) {
-            if (YldMouse.isTouching(x - clickerOffset / 2, y - clickerOffset / 2, width + clickerOffset, height + clickerOffset)) {
+        if (canvas.getMouse().isPressing()) {
+            if (canvas.getMouse().isTouching(x - clickerOffset / 2, y - clickerOffset / 2, width + clickerOffset, height + clickerOffset)) {
                 if(isDraw())
-                clickerX = YldMouse.getMouseX() - clickerWidth / 2 - x;
+                clickerX = canvas.getMouse().getMouseX() - clickerWidth / 2 - x;
                 pressed = true;
             }
         } else {
@@ -48,11 +47,11 @@ public class YldSlider extends YldCanvasScript {
 
     @Override
     public void draw(Graphics2D g) {
-        g.setColor(palette.auxColor4);
+        g.setColor(palette.getAuxColor4());
         g.fillRect((int) x, (int) y, (int) width, (int) height);
-        g.setColor(palette.auxColor2);
+        g.setColor(palette.getAuxColor2());
         g.fillRect((int) x, (int) y, (int) (clickerX + x + clickerWidth / 2 - x), (int) height);
-        g.setColor(palette.auxColor1);
+        g.setColor(palette.getAuxColor1());
         g.fillOval((int) (clickerX + x), (int) clickerY, (int) clickerWidth, (int) clickerHeight);
     }
 

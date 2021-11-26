@@ -1,12 +1,10 @@
 package yield.core;
 
 import java.awt.Color;
-import java.awt.geom.AffineTransform;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.awt.geom.AffineTransform;
+import java.util.HashSet;
 
 import yield.YldApp;
 import yield.YldGScript;
@@ -19,25 +17,26 @@ import yield.core.engines.interfaces.YldLogical;
 import yield.util.YldReader;
 import yield.util.YldWriter;
 import yieldg.YldSprite;
-import yieldg.ui.YieldUI;
 
 /**
- * O YldCore é o coração do jogo, ele que manda para todos os objetos o que as engines fazem.
+ * O YldCore é o coração do jogo, ele que manda para todos os objetos o que as
+ * engines fazem.
  */
 public class YldCore implements YldLogical, YldGraphical {
 
     public static boolean yieldpresentation;
     public YldApp app;
 
-    private List<YldScript> yldScripts;
+    private HashSet<YldScript> yldScripts;
     private YldLogicEngine yldLogicEngine;
     private YldGraphicsEngine yldGraphicsEngine;
     public int TPS, FPS, width, height;
     private YldSprite yieldlogo = new YldSprite("/YieldP.png");
-    private YieldUI yieldUI;
+    private Graphics2D mainGraphics, nonImageGraphics;
+    private boolean showEmptyWarning = true;
 
     public YldCore() {
-        yldScripts = new ArrayList<>();
+        yldScripts = new HashSet<>();
         YldWriter.writer = new YldWriter();
         YldReader.reader = new YldReader();
     }
@@ -53,28 +52,47 @@ public class YldCore implements YldLogical, YldGraphical {
         TPS = (int) yldLogicEngine.getTPS();
 
         if (yldScripts != null) {
-            for (int i = 0; i < yldScripts.size(); i++) {
-                YldScript script = yldScripts.get(i);
-                if (script.getLayer() >= 0) {
-                    if (script.getLayer() < yldScripts.size()) {
-                        Collections.swap(yldScripts, script.getLayer(), i);
-                    } else {
-                        Collections.swap(yldScripts, yldScripts.size() - 1, i);
-                    }
-                    script.setLayer(-1);
-                }
-                if (script.getBody() != null) {
-                    if (script.getBody().getRoom() != null) {
-                        if (script.getBody().getRoom() == YldRoom.getActRoom()) {
-                            script.update();
+
+            int n = -1, maxLayer = 1;
+
+            try {
+                while (n <= maxLayer) {
+                    for (YldScript script : yldScripts) {
+                        if (maxLayer < script.getLayer())
+                            maxLayer = script.getLayer();
+                        boolean call = false;
+                        if (n == script.getLayer()) {
+                            try {
+                                if (script.getBody().getRoom() == YldRoom.getActRoom())
+                                    call = true;
+                                else
+                                    call = false;
+                                if (script.getBody() == null || script.getBody().getRoom() == null)
+                                    call = true;
+                            } catch (Exception e) {
+                                call = true;
+                            }
                         }
-                    } else {
-                        script.update();
+                        if (call)
+                            script.update();
                     }
-                } else {
-                    script.update();
+                    n++;
                 }
+
+            } catch (Exception ignore) {
+
             }
+
+            /*
+             * for (int i = 0; i < yldScripts.size(); i++) { YldScript script =
+             * yldScripts.get(i); if (script.getLayer() >= 0) { if (script.getLayer() <
+             * yldScripts.size()) { Collections.swap(yldScripts, script.getLayer(), i); }
+             * else { Collections.swap(yldScripts, yldScripts.size() - 1, i); }
+             * script.setLayer(-1); } if (script.getBody() != null) { if
+             * (script.getBody().getRoom() != null) { if (script.getBody().getRoom() ==
+             * YldRoom.getActRoom()) { script.update(); } } else { script.update(); } } else
+             * { script.update(); } }
+             */
 
         }
     }
@@ -84,55 +102,74 @@ public class YldCore implements YldLogical, YldGraphical {
         TPS = (int) yldGraphicsEngine.getFPS();
         width = yldGraphicsEngine.getWWidth();
         height = yldGraphicsEngine.getWHeight();
-        int n = 0;
-        if (yldScripts != null) {
-            for (int i = 0; i < yldScripts.size(); i++) {
-                YldScript script = yldScripts.get(i);
-                AffineTransform at = g.getTransform();
-                if (script instanceof YldGScript) {
-                    n++;
-                    if (script.getBody() != null) {
-                        if (script.getBody().getRoom() != null) {
-                            if (script.getBody().getRoom() == YldRoom.getActRoom()) {
-                                ((YldGScript) script).updateRender(g);
-                            }
-                        } else {
-                            ((YldGScript) script).updateRender(g);
+        int n1 = 0;
+        int n = -1, maxLayer = 1;
+
+        try {
+            while (n <= maxLayer) {
+                for (YldScript script : yldScripts) {
+                    AffineTransform at = g.getTransform();
+                    if (maxLayer < script.getLayer())
+                        maxLayer = script.getLayer();
+                    boolean call = false;
+                    if (n == script.getLayer()) {
+                        try {
+                            if (script.getBody().getRoom() == YldRoom.getActRoom())
+                                call = true;
+                            else
+                                call = false;
+                                if (script.getBody() == null || script.getBody().getRoom() == null)
+                                call = true;
+                        } catch (Exception e) {
+                            call = true;
                         }
-                    } else {
+                    }
+
+                    if (call && script instanceof YldGScript) {
+                        n1++;
                         ((YldGScript) script).updateRender(g);
                     }
+                    g.transform(at);
                 }
-                g.transform(at);
+                n++;
             }
+
+        } catch (Exception ignore) {
         }
 
-        if (n <= 1 || yieldpresentation) {
+        if ((n1 <= 1 && YldRoom.getActRoom() == null) || yieldpresentation) {
             g.clearRect(0, 0, yldGraphicsEngine.getWWidth(), yldGraphicsEngine.getWHeight());
             g.drawImage(yieldlogo.getBufferedImage(),
                     (int) (yldGraphicsEngine.getWWidth() / 2
                             - (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667) / 1.9),
                     (int) (yldGraphicsEngine.getWHeight() / 2
-                            - (int) ((double) yldGraphicsEngine.getWHeight() / 1.706666666666667) / 2.6), (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667),
+                            - (int) ((double) yldGraphicsEngine.getWHeight() / 1.706666666666667) / 2.6),
+                    (int) ((double) yldGraphicsEngine.getWWidth() / 1.706666666666667),
                     (int) ((double) yldGraphicsEngine.getWHeight() / 2.4), null);
             g.setFont(new Font("arial", 0, 10));
             g.setColor(Color.white);
-            String string = "made by vtogames";
-            g.drawString(string, getYldGraphicsEngine().getWWidth() - g.getFontMetrics().stringWidth(string), getYldGraphicsEngine().getWHeight() - g.getFont().getSize() / 2);
+            String string = "version: " + YldApp.YIELD_VERSION + ", made by vtogames";
+            g.drawString(string, getYldGraphicsEngine().getWWidth() - g.getFontMetrics().stringWidth(string),
+                    getYldGraphicsEngine().getWHeight() - g.getFont().getSize() / 2);
+        } else if (n1 <= 1 && showEmptyWarning) {
+            String string = "empty!";
+            g.setColor(Color.red);
+            g.drawString(string, getYldGraphicsEngine().getWWidth() - g.getFontMetrics().stringWidth(string),
+                    getYldGraphicsEngine().getWHeight() - g.getFont().getSize() / 2);
         }
     }
 
     /**
      * @return the yldScripts
      */
-    public List<YldScript> getYldScripts() {
+    public HashSet<YldScript> getYldScripts() {
         return yldScripts;
     }
 
     /**
      * @param yldScripts the yldScripts to set
      */
-    public void setYldScripts(List<YldScript> yldScripts) {
+    public void setYldScripts(HashSet<YldScript> yldScripts) {
         this.yldScripts = yldScripts;
     }
 
@@ -259,11 +296,28 @@ public class YldCore implements YldLogical, YldGraphical {
         this.yieldlogo = yieldlogo;
     }
 
-    public YieldUI getYieldUI() {
-        return yieldUI;
+    public Graphics2D getMainGraphics() {
+        return mainGraphics;
     }
 
-    public void setYieldUI(YieldUI yieldUI) {
-        this.yieldUI = yieldUI;
+    public void setMainGraphics(Graphics2D mainGraphics) {
+        this.mainGraphics = mainGraphics;
     }
+
+    public Graphics2D getNonImageGraphics() {
+        return nonImageGraphics;
+    }
+
+    public void setNonImageGraphics(Graphics2D nonImageGraphics) {
+        this.nonImageGraphics = nonImageGraphics;
+    }
+
+    public boolean isShowEmptyWarning() {
+        return showEmptyWarning;
+    }
+
+    public void setShowEmptyWarning(boolean showEmptyWarning) {
+        this.showEmptyWarning = showEmptyWarning;
+    }
+
 }
