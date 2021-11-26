@@ -16,7 +16,7 @@ public class YldText extends YldGScript {
     private double x, y;
     private Font font = new Font("arial", Font.BOLD, 50);
     private Color color = Color.white;
-    private HotPoint hotPoint = HotPoint.NONE;
+    private HotPoint hotPoint = HotPoint.MIDDLE;
     private int hx, hy;
     private int width, height;
 
@@ -83,6 +83,11 @@ public class YldText extends YldGScript {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void toMiddle() {
+        x = yld.width / 2;
+        y = yld.height / 2;
     }
 
     public double getX() {

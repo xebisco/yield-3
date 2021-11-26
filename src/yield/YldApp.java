@@ -15,7 +15,7 @@ import yieldg.window.YldWindow;
  * O YldApp é a classe onde o jogo inicia, ele inicia o YldCore e todas as suas
  * dependências
  */
-public abstract class YldApp {
+public abstract class YldApp implements Yld {
 
 	public final static String YIELD_VERSION = "3.8";
 

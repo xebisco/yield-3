@@ -3,14 +3,14 @@ package yield;
 import java.lang.reflect.Method;
 
 import yield.core.YldCore;
-import yield.core.engines.exclusive.YldExclusiveEngine;
-import yield.core.engines.exclusive.interfaces.YldExclusiveAction;
+import yield.core.engines.exclusive.*;
+import yield.core.engines.exclusive.interfaces.*;
 import yield.exceptions.YldCallMethodException;
 
 /**
  * Onde todo o código do jogo é escrito, todo objeto com ações em frames da Yield é um YldScript.
  */
-public abstract class YldScript {
+public abstract class YldScript implements Yld {
 
 	private int layer = -1;
 
@@ -68,6 +68,7 @@ public abstract class YldScript {
 	/**
 	 * @since yield 3.4
 	 */
+	@Deprecated
 	public static void callExclusive(YldExclusiveAction action) {
 		YldExclusiveEngine exclusiveEngine = new YldExclusiveEngine();
 		exclusiveEngine.setAction(action);

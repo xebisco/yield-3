@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Uma coletânia de YldScripts
  */
-public abstract class YldBody {
+public abstract class YldBody implements Yld {
 	
 	private List<YldScript> scriptList;
 	private YldRoom room;

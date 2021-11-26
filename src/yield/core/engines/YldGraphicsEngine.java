@@ -9,14 +9,11 @@ import java.awt.image.BufferedImage;
 import yield.core.engines.interfaces.YldGraphical;
 import yieldg.window.YldWindow;
 
-/**
- * Essa engine serve para criar graficos e enviar para um YldGraphical.
- */
-public final class YldGraphicsEngine extends Canvas {
+public final class YldGraphicsEngine extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public final static String GRAPHICS_ENGINE_VERSION = "1.1.1b";
+	public static String graphics_engine_version = "1.0";
 
 	private boolean running = true, refreshBuffers = true, pause = false;
 	private double targetFPS = 60, FPS = targetFPS, addX, addY, addWidth, addHeight;
@@ -28,22 +25,54 @@ public final class YldGraphicsEngine extends Canvas {
 
 	public YldGraphicsEngine(YldGraphical yldGraphical) {
 		this.yldGraphical = yldGraphical;
+		thread = new Thread(this);
+		thread.setName("YieldGraphicsThread");
+		thread.start();
 	}
 
-	BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+	@Override
+	public void run() {
+		long initialTime = System.nanoTime();
+		double timeF = 0;
+		int frames = 0;
+		double deltaF = 0;
+		long timer = System.currentTimeMillis();
+		this.createBufferStrategy(numBuffers);
+		while (running) {
+			try {
+				timeF = 1000000000d / targetFPS;
 
-	public void render() {
+				long currentTime = System.nanoTime();
+				deltaF += (currentTime - initialTime) / timeF;
+				initialTime = currentTime;
+
+				if (deltaF >= 1) {
+					if (frames > 0)
+						render();
+					frames++;
+					this.frames++;
+					deltaF--;
+				}
+
+				if (System.currentTimeMillis() - timer > 1000d) {
+					FPS = frames;
+					frames = 0;
+					timer += 1000;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+
+	private void render() {
 		if (window != null) {
 
-			requestFocus();
-
-			h = getWHeight() + (window.getHeight() - getWHeight()) - window.getInsets().top - window.getInsets().left;
-			w = (int) (h * ((double) getWWidth() / (double) getWHeight()));
-			if (window.isFullscreen()) {
-				xt = window.getWidth() / 2 - w / 2;
-			} else {
-				xt = 0;
-			}
+			h = (int) (((double) getHeight()));
+			w = (int) ((double) h * ((double) getWWidth() / (double) getWHeight()));
 
 			if (image.getWidth() != width || image.getHeight() != height) {
 				image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -71,18 +100,19 @@ public final class YldGraphicsEngine extends Canvas {
 
 			///////////////////////////////////////////////////////////////////////////////////
 
-			g.transform(oldXForm);
-
 			g.dispose();
 
 			g = (Graphics2D) bs.getDrawGraphics();
 
-			if (!pause) {
+			if (!pause && window != null && image != null) {
 				try {
-					g.drawImage(image, (int) addX + xt, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
+					g.drawImage(image, (int) addX, (int) addY, (int) (w + addWidth), (int) (h + addHeight), null);
 				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
+
+			g.transform(oldXForm);
 
 			bs.show();
 		}
@@ -361,53 +391,20 @@ public final class YldGraphicsEngine extends Canvas {
 		this.addHeight = addHeight;
 	}
 
-	/**
-	 * @return the graphicsEngineVersion
-	 */
-	public static String getGraphicsEngineVersion() {
-		return GRAPHICS_ENGINE_VERSION;
+	public static String getGraphics_engine_version() {
+		return graphics_engine_version;
 	}
 
-	/**
-	 * @return the pause
-	 */
+	public static void setGraphics_engine_version(String graphics_engine_version) {
+		YldGraphicsEngine.graphics_engine_version = graphics_engine_version;
+	}
+
 	public boolean isPause() {
 		return pause;
 	}
 
-	/**
-	 * @param pause the pause to set
-	 */
 	public void setPause(boolean pause) {
 		this.pause = pause;
-	}
-
-	/**
-	 * @return the width
-	 */
-	public int getWidth() {
-		return width;
-	}
-
-	/**
-	 * @param width the width to set
-	 */
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return the height
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-	/**
-	 * @param height the height to set
-	 */
-	public void setHeight(int height) {
-		this.height = height;
 	}
 
 	public int getXt() {
@@ -417,4 +414,6 @@ public final class YldGraphicsEngine extends Canvas {
 	public void setXt(int xt) {
 		this.xt = xt;
 	}
+
+	
 }

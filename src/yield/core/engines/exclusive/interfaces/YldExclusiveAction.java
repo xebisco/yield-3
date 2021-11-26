@@ -1,7 +1,8 @@
 package yield.core.engines.exclusive.interfaces;
 
-import yield.util.YldAction;
+@Deprecated
+public abstract interface YldExclusiveAction {
 
-public abstract interface YldExclusiveAction extends YldAction {
+    public void onAction();
 
 }

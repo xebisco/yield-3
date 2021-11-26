@@ -44,7 +44,6 @@ public class YldCore implements YldLogical, YldGraphical {
     public void startEngines() {
         yldLogicEngine = new YldLogicEngine(this);
         yldGraphicsEngine = new YldGraphicsEngine(this);
-        yldLogicEngine.setGraphicsEngine(yldGraphicsEngine);
     }
 
     @Override

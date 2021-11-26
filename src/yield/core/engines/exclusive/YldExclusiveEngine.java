@@ -1,11 +1,12 @@
 package yield.core.engines.exclusive;
 
-import yield.util.YldAction;
+import yield.core.engines.exclusive.interfaces.YldExclusiveAction;
 
 /**
      * Essa engine é feita para ser usada com assets, como imagens ou audios.
      * @since yield 3.4
      */
+    @Deprecated
 public class YldExclusiveEngine implements Runnable {
 
     public static final String EXCLUSIVE_ENGINE_VERSION = "1";
@@ -14,7 +15,7 @@ public class YldExclusiveEngine implements Runnable {
 
     private boolean stopOnEnd = true;
 
-    private YldAction action;
+    private YldExclusiveAction action;
 
     public YldExclusiveEngine() {
         thread = new Thread(this);
@@ -59,11 +60,11 @@ public class YldExclusiveEngine implements Runnable {
         this.stopOnEnd = stopOnEnd;
     }
 
-    public YldAction getAction() {
+    public YldExclusiveAction getAction() {
         return action;
     }
 
-    public void setAction(YldAction action) {
+    public void setAction(YldExclusiveAction action) {
         this.action = action;
     }
 

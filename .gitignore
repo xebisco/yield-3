@@ -1,21 +1,3 @@
-Skip to content
- 
-Search…
-All gists
-Back to GitHub
-@vtogames 
-@dedunumax
-dedunumax/.gitignore Java
-Last active 20 hours ago • Report abuse
-214
-66
- Code
- Revisions 18
- Stars 214
- Forks 66
-<script src="https://gist.github.com/dedunumax/54e82214715e35439227.js"></script>
-A complete .gitignore file for Java - https://www.dedunu.info/2014/11/gitignore-file-for-java.html
-.gitignore Java
 ##############################
 ## Java
 ##############################
@@ -105,3 +87,4 @@ nb-configuration.xml
 # Yield Engine
 ################
 program/
+src/testYield.java

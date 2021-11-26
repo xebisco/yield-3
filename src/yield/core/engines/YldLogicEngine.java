@@ -8,9 +8,8 @@ import yield.exceptions.YldLogicException;
  */
 public final class YldLogicEngine implements Runnable {
 
-	public final static String LOGIC_ENGINE_VERSION = "2b";
+	public final static String LOGIC_ENGINE_VERSION = "2c";
 
-	private YldGraphicsEngine graphicsEngine;
 	private boolean running = true;
 	private double targetTPS = 60, TPS = targetTPS;
 	private YldLogical yldLogical;
@@ -41,8 +40,6 @@ public final class YldLogicEngine implements Runnable {
 
 				if (deltaT >= 1) {
 					yldLogical.update();
-					if (graphicsEngine != null)
-						graphicsEngine.render();
 					ticks++;
 					this.ticks++;
 					deltaT--;
@@ -63,14 +60,6 @@ public final class YldLogicEngine implements Runnable {
 
 	public static String getLogicEngineVersion() {
 		return LOGIC_ENGINE_VERSION;
-	}
-
-	public YldGraphicsEngine getGraphicsEngine() {
-		return graphicsEngine;
-	}
-
-	public void setGraphicsEngine(YldGraphicsEngine graphicsEngine) {
-		this.graphicsEngine = graphicsEngine;
 	}
 
 	public Thread getThread() {
