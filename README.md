@@ -1,7 +1,7 @@
 # Yield Game Engine
 
 <p align="center">
-  <img src="https://github.com/vtogames/yield/blob/yieldEngine/res/yieldIconN.png" />
+  <img src="https://github.com/vtogames/yield/blob/master/res/yield/Start%20Image.png" />
 </p>
 
 ## Table of contents
@@ -10,7 +10,7 @@
 * [Setup](#setup)
 
 ## General info
-This project is a simple, easy and powerfull 2D game engine.
+The Yield Game Engine is a simple, easy and powerfull 2D game engine.
 	
 ## Technologies
 Project is created with:
