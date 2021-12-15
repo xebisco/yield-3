@@ -5,6 +5,7 @@ import yield.objects.YldB;
 
 import java.awt.*;
 
+
 /**
  * Contem todas as informações sobre o tempo o primeiro YldCore criado.
  */
@@ -46,23 +47,19 @@ public final class YldTime extends YldB implements YldGraphical {
 	}
 
 	public static double deltaTime() {
-		double it = ((((double) FPS * -1.0) + (double) Yld.fps) / (double) Yld.fps) * 2 + 1.0;
-		return it;
+		return ((((double) FPS * -1.0) + (double) Yld.getFps()) / (double) Yld.getFps()) * 2 + 1.0;
 	}
 
 	public static double renderDeltaTime() {
-		double it = ((((double) renderFPS * -1.0) + (double) Yld.renderFps) / (double) Yld.renderFps) * 2 + 1.0;
-		return it;
+		return ((((double) renderFPS * -1.0) + (double) Yld.getRenderFps()) / (double) Yld.getRenderFps()) * 2 + 1.0;
 	}
 
 	public static int totalSeconds() {
-		int s = (int) (System.currentTimeMillis() - startTimeMillis) / 1000;
-		return s;
+		return (int) (System.currentTimeMillis() - startTimeMillis) / 1000;
 	}
 
 	public static double totalMilliSeconds() {
-		int s = (int) (System.currentTimeMillis() - startTimeMillis);
-		return s;
+		return (int) (System.currentTimeMillis() - startTimeMillis);
 	}
 
 	public static double getStartTimeMillis() {
