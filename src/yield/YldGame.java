@@ -53,8 +53,8 @@ public class YldGame extends JPanel implements YldLoopable {
     @Override
     public void tick() {
         repaint();
-        Yld.fps = (int) getHandler().getLoop().getFps();
-        Yld.renderFps = (int)graphicsLoop.getFps();
+        Yld.setFps((int) getHandler().getLoop().getFps());
+        Yld.setRenderFps((int)graphicsLoop.getFps());
     }
 
     public static void addScene(YldScene scene) {
@@ -121,8 +121,8 @@ public class YldGame extends JPanel implements YldLoopable {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Yld.width = getWidth();
-        Yld.height = getHeight();
+        Yld.setWidth(getWidth());
+        Yld.setHeight(getHeight());
         g.setColor(Color.black);
         g.fillRect(0, 0, getWidth(), getHeight());
         drawTargets.forEach(dt -> dt.drawExclusive(g));
