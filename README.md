@@ -1,7 +1,7 @@
 # Yield Game Engine
 
 <p align="center">
-  <img src="https://github.com/vtogames/yield/blob/master/res/yield/Start%20Image.png" />
+  <img src="https://github.com/vtogames/yield/blob/master/res/yield/YieldP.png" />
 </p>
 
 ## Table of contents
