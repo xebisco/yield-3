@@ -2,7 +2,6 @@ package yieldg.image;
 
 import java.awt.Graphics2D;
 
-import yield.YldGScript;
 import yieldg.YldSprite;
 import yieldg.util.HotPoint;
 

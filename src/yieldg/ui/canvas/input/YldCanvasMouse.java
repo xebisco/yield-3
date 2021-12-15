@@ -9,9 +9,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 
-import yield.YldApp;
-import yield.YldScript;
-
 /**
  * Essa classe é utilizada para localizar e obter ações do ponteiro do mouse um
  * uma janela.

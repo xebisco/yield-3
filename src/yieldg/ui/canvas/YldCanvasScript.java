@@ -1,7 +1,5 @@
 package yieldg.ui.canvas;
 
-import yield.YldGScript;
-
 import java.awt.*;
 
 public abstract class YldCanvasScript extends YldGScript {

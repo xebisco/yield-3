@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import yield.YldApp;
-import yield.YldBody;
-import yield.YldGScript;
 import yieldg.ui.canvas.input.YldCanvasMouse;
 
 public class YldCanvas {
