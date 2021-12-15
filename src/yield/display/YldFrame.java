@@ -18,6 +18,8 @@ public class YldFrame extends JFrame {
 
     private void start(int width, int height) {
         int iw = 0, ih = 0;
+        Yld.windowWidth = width;
+        Yld.windowHeight = height;
         setSize(100, 100);
         setVisible(true);
         iw = getInsets().left + getInsets().right;

@@ -53,6 +53,8 @@ public class YldGame extends JPanel implements YldLoopable {
     @Override
     public void tick() {
         repaint();
+        Yld.fps = (int) getHandler().getLoop().getFps();
+        Yld.renderFps = (int)graphicsLoop.getFps();
     }
 
     public static void addScene(YldScene scene) {

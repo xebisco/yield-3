@@ -43,6 +43,20 @@ public class YldLoop extends ThreadType {
     public void setLoopable(YldLoopable loopable) {
         this.loopable = loopable;
     }
-    
-    
+
+    public boolean isStop() {
+        return stop;
+    }
+
+    public void setStop(boolean stop) {
+        this.stop = stop;
+    }
+
+    public double getFps() {
+        return fps;
+    }
+
+    public void setFps(double fps) {
+        this.fps = fps;
+    }
 }

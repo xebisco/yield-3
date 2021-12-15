@@ -2,11 +2,11 @@ package yield;
 
 public class Yld {
 
-    public static final String YIELD_VERSION = "3.8 Public Beta 3";
+    public static final String YIELD_VERSION = "3.8 Public Beta 4";
 
     private static YldGame mainGame;
 
-    public static int width, height;
+    public static int windowWidth, windowHeight, fps, renderFps;
 
     public static YldGame getMainGame() {
         return mainGame;
