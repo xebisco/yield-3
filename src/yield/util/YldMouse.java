@@ -24,6 +24,10 @@ public class YldMouse extends YldB implements MouseListener, MouseWheelListener 
 
 	private boolean clickfalse;
 
+	public YldMouse() {
+		load();
+	}
+
 	@Override
 	public void create() {
 
@@ -35,7 +39,7 @@ public class YldMouse extends YldB implements MouseListener, MouseWheelListener 
 		Point b = a.getLocation();
 		mouseX = (b.getX() - (Yld.getMainFrame().getX() + Yld.getMainFrame().getInsets().left))
 				* Yld.getWindowWidth() / Yld.getWidth();
-		mouseY = (b.getX() - (Yld.getMainFrame().getY() + Yld.getMainFrame().getInsets().top))
+		mouseY = (b.getY() - (Yld.getMainFrame().getY() + Yld.getMainFrame().getInsets().top))
 				* Yld.getWindowHeight() / Yld.getHeight();
 		if (clicking) {
 			clickfalse = true;

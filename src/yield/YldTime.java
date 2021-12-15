@@ -5,10 +5,6 @@ import yield.objects.YldB;
 
 import java.awt.*;
 
-
-/**
- * Contem todas as informações sobre o tempo o primeiro YldCore criado.
- */
 public final class YldTime extends YldB implements YldGraphical {
 
 	private static int FPS, renderFPS;
@@ -20,6 +16,10 @@ public final class YldTime extends YldB implements YldGraphical {
 	private double npR;
 
 	private static double startTimeMillis;
+
+	public YldTime() {
+		load();
+	}
 
 	@Override
 	public void create() {

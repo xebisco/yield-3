@@ -10,6 +10,8 @@ import yield.objects.YldB;
 import yield.display.YldGraphical;
 import yield.objects.YldObject;
 import yield.objects.YldScene;
+import yield.util.YldInput;
+import yield.util.YldMouse;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,6 +50,11 @@ public class YldGame extends JPanel implements YldLoopable {
         repaint();
         drawTargets.add(new YldGameDT());
         graphicsLoop.startThread();
+        new YldTime();
+        YldMouse mouse = new YldMouse();
+        Yld.getMainFrame().addMouseListener(mouse);
+        Yld.getMainFrame().addMouseWheelListener(mouse);
+        Yld.getMainFrame().addKeyListener(new YldInput());
     }
 
     @Override

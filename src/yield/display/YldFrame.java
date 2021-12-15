@@ -34,9 +34,5 @@ public class YldFrame extends JFrame {
         setResizable(false);
         setSize(width + iw, height + ih);
         setLocationRelativeTo(null);
-        YldMouse mouse = new YldMouse();
-        addMouseListener(mouse);
-        addMouseWheelListener(mouse);
-        addKeyListener(new YldInput());
     }
 }
