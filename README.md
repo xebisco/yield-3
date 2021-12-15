@@ -14,7 +14,7 @@ This project is a simple, easy and powerfull 2D game engine.
 	
 ## Technologies
 Project is created with:
-* Zulu Build of OpenJDK 17
+* Zulu Build of OpenJDK 11
 * VSCode
 * Eclipse IDE
 * Intellij IDEA Community
