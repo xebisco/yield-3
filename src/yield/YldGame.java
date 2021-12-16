@@ -88,6 +88,7 @@ public final class YldGame extends JPanel implements YldLoopable {
                 if (scene.getSceneName().hashCode() == sceneName.hashCode())
                     if (scene.getSceneName().equals(sceneName)) {
                         handler.getbHashSet().add(scene);
+                        scene.enter();
                         scene.getObjects().forEach(YldObject::enter);
                     }
             });

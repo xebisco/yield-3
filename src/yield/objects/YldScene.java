@@ -18,6 +18,13 @@ public abstract class YldScene extends YldB implements YldGraphical {
 
     }
 
+    /**
+     * This method is called when YldGame switch to this scene
+     */
+    public void enter() {
+
+    }
+
     @Override
     public void update() {
         YldBHandler.updateB(objects.toArray(new YldB[0]));
