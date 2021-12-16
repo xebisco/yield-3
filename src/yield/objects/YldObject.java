@@ -6,10 +6,17 @@ import java.util.ConcurrentModificationException;
 
 public abstract class YldObject extends YldB {
 
-    private String name = getClass().getSimpleName();
+    private final String name = getClass().getSimpleName();
 
     @Override
     public void create() {
+
+    }
+
+    /**
+     * This method is called when this YldObject scene enter.
+     */
+    public void enter() {
 
     }
 

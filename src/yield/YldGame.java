@@ -21,7 +21,7 @@ import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 import java.util.List;
 
-public class YldGame extends JPanel implements YldLoopable {
+public final class YldGame extends JPanel implements YldLoopable {
 
     private static YldBHandler handler;
 
@@ -45,7 +45,7 @@ public class YldGame extends JPanel implements YldLoopable {
         handler = new YldBHandler();
         handler.setExtendLoop(this);
         scenes = new HashSet<>();
-        scenes.add(startScene);
+        addScene(startScene);
         switchScene(startScene.getSceneName());
         repaint();
         drawTargets.add(new YldGameDT());
@@ -86,9 +86,12 @@ public class YldGame extends JPanel implements YldLoopable {
             });
             scenes.forEach(scene -> {
                 if (scene.getSceneName().hashCode() == sceneName.hashCode())
-                    if (scene.getSceneName().equals(sceneName))
+                    if (scene.getSceneName().equals(sceneName)) {
                         handler.getbHashSet().add(scene);
+                        scene.getObjects().forEach(YldObject::enter);
+                    }
             });
+
         } catch (ConcurrentModificationException e) {
             switchScene(sceneName);
         }

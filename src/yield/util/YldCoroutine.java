@@ -2,9 +2,9 @@ package yield.util;
 
 import yield.core.ThreadType;
 
-public class YldCoroutine extends ThreadType {
+public final class YldCoroutine extends ThreadType {
 
-    private YldAction perform;
+    private final YldAction perform;
 
     public YldCoroutine(YldAction perform) {
         this.perform = perform;

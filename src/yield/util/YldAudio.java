@@ -4,14 +4,12 @@ import yield.objects.YldB;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
+import java.util.Objects;
 
-/**
- * Essa classe é utilizada para carregar e tocar arquivos de áudio.
- */
 public class YldAudio extends YldB {
 	
 	private static float masterVolume = 90f;
-	private String path;
+	private final String path;
 	private Clip clip;
 	private boolean customVolume = false;
 	private int frames;
@@ -47,17 +45,14 @@ public class YldAudio extends YldB {
 	public YldAudio(String path) {
 		this.path = path;
 
-		AudioInputStream audioIn = null;
 		try {
 			if (this.getClass().getResource(path) != null) {
-				audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource(path));
+				AudioInputStream audioIn = AudioSystem.getAudioInputStream(Objects.requireNonNull(this.getClass().getResource(path)));
 				clip = AudioSystem.getClip();
 				clip.open(audioIn);
 			} else
 				System.out.println("Audio: Cannot find " + path);
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
+		} catch (UnsupportedAudioFileException | LineUnavailableException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Audio: Cannot find " + path);
@@ -98,11 +93,8 @@ public class YldAudio extends YldB {
 		if (clip == null) {
 			return;
 		}
-		if (!(clip.isRunning()) && wait) {
-			stop();
-			clip.setFramePosition(0);
-			clip.start();
-		} else if (!wait) {
+		clip.isRunning();
+		if (!wait) {
 			stop();
 			clip.setFramePosition(0);
 			clip.start();

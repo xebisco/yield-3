@@ -2,9 +2,9 @@ package yield;
 
 import yield.display.YldFrame;
 
-public class Yld {
+public final class Yld {
 
-    public static final String YIELD_VERSION = "3.8 Public Beta 4";
+    public static final String YIELD_VERSION = "3.8 Public Beta 6";
 
     private static YldGame mainGame;
 

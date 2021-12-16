@@ -12,7 +12,7 @@ import java.awt.event.MouseWheelListener;
 /**
  * Essa classe é utilizada para localizar e obter ações do ponteiro do mouse um uma janela.
  */
-public class YldMouse extends YldB implements MouseListener, MouseWheelListener {
+public final class YldMouse extends YldB implements MouseListener, MouseWheelListener {
 
 	private static double mouseX, mouseY;
 
