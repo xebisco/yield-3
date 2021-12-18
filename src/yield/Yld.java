@@ -4,7 +4,7 @@ import yield.display.YldFrame;
 
 public final class Yld {
 
-    public static final String YIELD_VERSION = "3.8 Public Beta 7";
+    public static final String YIELD_VERSION = "3.8 Public Beta 8";
 
     private static YldGame mainGame;
 
