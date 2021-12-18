@@ -61,7 +61,6 @@ public final class YldGame extends JPanel implements YldLoopable {
         repaint();
         Yld.setFps((int) getHandler().getLoop().getFps());
         Yld.setRenderFps((int)graphicsLoop.getFps());
-        drawTargets.forEach(dt -> dt.draw(null));
     }
 
     public static void addScene(YldScene scene) {
@@ -143,7 +142,7 @@ public final class YldGame extends JPanel implements YldLoopable {
         Graphics2D g2 = (Graphics2D) ig;
         if (antialiasing)
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        //drawTargets.forEach(dt -> dt.draw(ig));
+        drawTargets.forEach(dt -> dt.draw(ig));
         ig.dispose();
         g2.dispose();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
