@@ -7,7 +7,7 @@ import java.util.Set;
 
 public final class YldInput implements KeyListener {
 
-    private static Set<String> keysSet;
+    private static Set<Integer> keysSet;
 
     public YldInput() {
         keysSet = new HashSet<>();
@@ -15,12 +15,12 @@ public final class YldInput implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        keysSet.add(KeyEvent.getKeyText(e.getKeyCode()).toUpperCase());
+        keysSet.add(e.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        keysSet.remove(KeyEvent.getKeyText(e.getKeyCode()).toUpperCase());
+        keysSet.remove(e.getKeyCode());
     }
 
     @Override
@@ -31,7 +31,7 @@ public final class YldInput implements KeyListener {
     /**
      * @return the keysSet
      */
-    public static Set<String> getKeysSet() {
+    public static Set<Integer> getKeysSet() {
         return keysSet;
     }
 
@@ -44,11 +44,12 @@ public final class YldInput implements KeyListener {
         }
 
         for (String s : keys) {
-            String keyToCompaire = s.toUpperCase();
-            for (String string : keysSet) {
+            String keyToCompare = s.toUpperCase();
+            for (Integer i : keysSet) {
+                String string = KeyEvent.getKeyText(i).toUpperCase();
                 try {
-                    if (string.hashCode() == keyToCompaire.hashCode()) {
-                        if (string.equals(keyToCompaire)) {
+                    if (string.hashCode() == keyToCompare.hashCode()) {
+                        if (string.equals(keyToCompare)) {
                             all++;
                         }
                     }
@@ -61,10 +62,26 @@ public final class YldInput implements KeyListener {
         } else return all != 0;
     }
 
+    public static boolean isKeyPressed(Integer keyText) {
+
+        for (Integer i : keysSet) {
+            try {
+                if (i.hashCode() == keyText.hashCode()) {
+                    if (i.equals(keyText)) {
+                        return true;
+                    }
+                }
+            } catch (Exception ignore) {
+            }
+        }
+
+        return false;
+    }
+
     /**
      * @param keysSet the keysSet to set
      */
-    public static void setKeysSet(Set<String> keysSet) {
+    public static void setKeysSet(Set<Integer> keysSet) {
         YldInput.keysSet = keysSet;
     }
 

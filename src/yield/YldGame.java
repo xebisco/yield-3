@@ -16,9 +16,7 @@ import yield.util.YldMouse;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
 
 public final class YldGame extends JPanel implements YldLoopable {
@@ -40,6 +38,7 @@ public final class YldGame extends JPanel implements YldLoopable {
     private static boolean antialiasing = false;
 
     public YldGame(int width, int height, YldScene startScene) {
+        Locale.setDefault(Locale.US);
         Yld.setMainGame(this);
         image = new BufferedImage(width, height, imageType);
         handler = new YldBHandler();
@@ -62,6 +61,7 @@ public final class YldGame extends JPanel implements YldLoopable {
         repaint();
         Yld.setFps((int) getHandler().getLoop().getFps());
         Yld.setRenderFps((int)graphicsLoop.getFps());
+        drawTargets.forEach(dt -> dt.draw(null));
     }
 
     public static void addScene(YldScene scene) {
@@ -143,7 +143,7 @@ public final class YldGame extends JPanel implements YldLoopable {
         Graphics2D g2 = (Graphics2D) ig;
         if (antialiasing)
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        drawTargets.forEach(dt -> dt.draw(ig));
+        //drawTargets.forEach(dt -> dt.draw(ig));
         ig.dispose();
         g2.dispose();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
@@ -196,5 +196,9 @@ public final class YldGame extends JPanel implements YldLoopable {
 
     public static void setAntialiasing(boolean antialiasing) {
         YldGame.antialiasing = antialiasing;
+    }
+
+    public YldLoop getGraphicsLoop() {
+        return graphicsLoop;
     }
 }

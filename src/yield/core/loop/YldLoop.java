@@ -21,12 +21,19 @@ public class YldLoop extends ThreadType {
     @Override
     public void start() {
         loopable.tickStart();
-        while(!stop) {
-            loopable.tick();
-            try {
-                Thread.sleep((long)(1000.0 / fps));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+        long initialTime = System.nanoTime();
+        double deltaF = 0;
+
+        while (!stop) {
+            final double timeF = 1000000000 / fps;
+            long currentTime = System.nanoTime();
+            deltaF += (currentTime - initialTime) / timeF;
+            initialTime = currentTime;
+
+            if (deltaF >= 1) {
+                loopable.tick();
+                deltaF--;
             }
         }
     }

@@ -4,7 +4,7 @@ import yield.display.YldFrame;
 
 public final class Yld {
 
-    public static final String YIELD_VERSION = "3.8 Public Beta 6";
+    public static final String YIELD_VERSION = "3.8 Public Beta 7";
 
     private static YldGame mainGame;
 
@@ -49,15 +49,15 @@ public final class Yld {
     }
 
     public static void setFps(int fps) {
-        Yld.fps = fps;
+        YldGame.getHandler().getLoop().setFps(fps);
     }
 
     public static int getRenderFps() {
         return renderFps;
     }
 
-    public static void setRenderFps(int renderFps) {
-        Yld.renderFps = renderFps;
+    public static void setRenderFps(int fps) {
+        mainGame.getGraphicsLoop().setFps(fps);
     }
 
     public static int getWidth() {

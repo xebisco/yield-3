@@ -9,11 +9,7 @@ public final class YldTime extends YldB implements YldGraphical {
 
 	private static int FPS, renderFPS;
 
-	private double n;
-	private double np;
-
-	private double nR;
-	private double npR;
+	private double n, np, nR, npR, elapsed, renderElapsed;
 
 	private static double startTimeMillis;
 
@@ -29,6 +25,7 @@ public final class YldTime extends YldB implements YldGraphical {
 	@Override
 	public void update() {
 		n = System.nanoTime() - np;
+		elapsed = n;
 		n = 1000000000 / n;
 
 		np = System.nanoTime();
@@ -39,6 +36,7 @@ public final class YldTime extends YldB implements YldGraphical {
 	@Override
 	public void draw(Graphics g) {
 		nR = System.nanoTime() - npR;
+		renderElapsed = nR;
 		nR = 1000000000 / nR;
 
 		npR = System.nanoTime();
@@ -82,14 +80,6 @@ public final class YldTime extends YldB implements YldGraphical {
 		this.np = np;
 	}
 
-	public double getnR() {
-		return nR;
-	}
-
-	public void setnR(double nR) {
-		this.nR = nR;
-	}
-
 	public double getNpR() {
 		return npR;
 	}
@@ -116,5 +106,29 @@ public final class YldTime extends YldB implements YldGraphical {
 
 	public static void setRenderFPS(int renderFPS) {
 		YldTime.renderFPS = renderFPS;
+	}
+
+	public double getnR() {
+		return nR;
+	}
+
+	public void setnR(double nR) {
+		this.nR = nR;
+	}
+
+	public double getElapsed() {
+		return elapsed;
+	}
+
+	public void setElapsed(double elapsed) {
+		this.elapsed = elapsed;
+	}
+
+	public double getRenderElapsed() {
+		return renderElapsed;
+	}
+
+	public void setRenderElapsed(double renderElapsed) {
+		this.renderElapsed = renderElapsed;
 	}
 }
