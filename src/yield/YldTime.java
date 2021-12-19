@@ -2,133 +2,159 @@ package yield;
 
 import yield.display.YldGraphical;
 import yield.objects.YldB;
+import yield.util.YldAction;
 
 import java.awt.*;
+import java.util.HashMap;
 
-public final class YldTime extends YldB implements YldGraphical {
+public class YldTime extends YldB implements YldGraphical {
 
-	private static int FPS, renderFPS;
+    private static int FPS, renderFPS;
 
-	private double n, np, nR, npR, elapsed, renderElapsed;
+    private double n, np, nR, npR, elapsed, renderElapsed;
 
-	private static double startTimeMillis;
+    private static double startTimeMillis;
 
-	public YldTime() {
-		load();
-	}
+    private static HashMap<YldAction, Float> agendaActions;
 
-	@Override
-	public void create() {
-		startTimeMillis = System.currentTimeMillis();
-	}
+    public YldTime() {
+        load();
+    }
 
-	@Override
-	public void update() {
-		n = System.nanoTime() - np;
-		elapsed = n;
-		n = 1000000000 / n;
+    @Override
+    public void create() {
+        startTimeMillis = System.currentTimeMillis();
+    }
 
-		np = System.nanoTime();
+    @Override
+    public void update() {
+        n = System.nanoTime() - np;
+        elapsed = n;
+        n = 1000000000 / n;
 
-		FPS = (int) n;
-	}
+        np = System.nanoTime();
 
-	@Override
-	public void draw(Graphics g) {
-		nR = System.nanoTime() - npR;
-		renderElapsed = nR;
-		nR = 1000000000 / nR;
+        if (agendaActions != null && !agendaActions.isEmpty()) {
+            agendaActions.forEach((YldAction action, Float time) -> {
+                if (startTimeMillis + time * 1000 <= totalMilliSeconds()) {
+                    action.onAction();
+                    agendaActions.remove(action, time);
+                }
+            });
+        }
 
-		npR = System.nanoTime();
+        FPS = (int) n;
+    }
 
-		renderFPS = (int) nR;
-	}
+    @Override
+    public void draw(Graphics g) {
+        nR = System.nanoTime() - npR;
+        renderElapsed = nR;
+        nR = 1000000000 / nR;
 
-	public static double deltaTime() {
-		return ((((double) FPS * -1.0) + (double) Yld.getFps()) / (double) Yld.getFps()) * 2 + 1.0;
-	}
+        npR = System.nanoTime();
 
-	public static double renderDeltaTime() {
-		return ((((double) renderFPS * -1.0) + (double) Yld.getRenderFps()) / (double) Yld.getRenderFps()) * 2 + 1.0;
-	}
+        renderFPS = (int) nR;
+    }
 
-	public static int totalSeconds() {
-		return (int) (System.currentTimeMillis() - startTimeMillis) / 1000;
-	}
+    public static void when(float seconds, YldAction action) {
+        agendaActions.put(action, seconds);
+    }
 
-	public static double totalMilliSeconds() {
-		return (int) (System.currentTimeMillis() - startTimeMillis);
-	}
 
-	public static double getStartTimeMillis() {
-		return startTimeMillis;
-	}
+    public static double deltaTime() {
+        return ((((double) FPS * -1.0) + (double) Yld.getFps()) / (double) Yld.getFps()) * 2 + 1.0;
+    }
 
-	public double getN() {
-		return n;
-	}
+    public static double renderDeltaTime() {
+        return ((((double) renderFPS * -1.0) + (double) Yld.getRenderFps()) / (double) Yld.getRenderFps()) * 2 + 1.0;
+    }
 
-	public void setN(double n) {
-		this.n = n;
-	}
+    public static int totalSeconds() {
+        return (int) (System.currentTimeMillis() - startTimeMillis) / 1000;
+    }
 
-	public double getNp() {
-		return np;
-	}
+    public static double totalMilliSeconds() {
+        return (int) (System.currentTimeMillis() - startTimeMillis);
+    }
 
-	public void setNp(double np) {
-		this.np = np;
-	}
+    public static double getStartTimeMillis() {
+        return startTimeMillis;
+    }
 
-	public double getNpR() {
-		return npR;
-	}
+    public double getN() {
+        return n;
+    }
 
-	public void setNpR(double npR) {
-		this.npR = npR;
-	}
+    public void setN(double n) {
+        this.n = n;
+    }
 
-	public static void setStartTimeMillis(double startTimeMillis) {
-		YldTime.startTimeMillis = startTimeMillis;
-	}
+    public double getNp() {
+        return np;
+    }
 
-	public static int getFPS() {
-		return FPS;
-	}
+    public void setNp(double np) {
+        this.np = np;
+    }
 
-	public static void setFPS(int FPS) {
-		YldTime.FPS = FPS;
-	}
+    public double getNpR() {
+        return npR;
+    }
 
-	public static int getRenderFPS() {
-		return renderFPS;
-	}
+    public void setNpR(double npR) {
+        this.npR = npR;
+    }
 
-	public static void setRenderFPS(int renderFPS) {
-		YldTime.renderFPS = renderFPS;
-	}
+    public static void setStartTimeMillis(double startTimeMillis) {
+        YldTime.startTimeMillis = startTimeMillis;
+    }
 
-	public double getnR() {
-		return nR;
-	}
+    public static int getFPS() {
+        return FPS;
+    }
 
-	public void setnR(double nR) {
-		this.nR = nR;
-	}
+    public static void setFPS(int FPS) {
+        YldTime.FPS = FPS;
+    }
 
-	public double getElapsed() {
-		return elapsed;
-	}
+    public static int getRenderFPS() {
+        return renderFPS;
+    }
 
-	public void setElapsed(double elapsed) {
-		this.elapsed = elapsed;
-	}
+    public static void setRenderFPS(int renderFPS) {
+        YldTime.renderFPS = renderFPS;
+    }
 
-	public double getRenderElapsed() {
-		return renderElapsed;
-	}
+    public double getnR() {
+        return nR;
+    }
 
-	public void setRenderElapsed(double renderElapsed) {
-		this.renderElapsed = renderElapsed;
-	}
+    public void setnR(double nR) {
+        this.nR = nR;
+    }
+
+    public double getElapsed() {
+        return elapsed;
+    }
+
+    public void setElapsed(double elapsed) {
+        this.elapsed = elapsed;
+    }
+
+    public double getRenderElapsed() {
+        return renderElapsed;
+    }
+
+    public void setRenderElapsed(double renderElapsed) {
+        this.renderElapsed = renderElapsed;
+    }
+
+    public static HashMap<YldAction, Float> getAgendaActions() {
+        return agendaActions;
+    }
+
+    public static void setAgendaActions(HashMap<YldAction, Float> agendaActions) {
+        YldTime.agendaActions = agendaActions;
+    }
 }

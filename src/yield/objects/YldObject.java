@@ -1,16 +1,26 @@
 package yield.objects;
 
 import yield.YldGame;
+import yield.components.YldAxis;
+import yield.components.YldComponent;
 
-import java.util.ConcurrentModificationException;
+import java.util.HashSet;
 
 public abstract class YldObject extends YldB {
 
     private final String name = getClass().getSimpleName();
+    private YldScene scene;
+    private final HashSet<YldComponent> components = new HashSet<>();
+    protected YldAxis axis;
+    private YldGraphicsExtension graphicsExtension;
+    private boolean startGraphicsExtension = true;
 
     @Override
     public void create() {
-
+        axis = new YldAxis();
+        components.add(axis);
+        if (startGraphicsExtension)
+            startGraphicsExtension();
     }
 
     /**
@@ -23,6 +33,22 @@ public abstract class YldObject extends YldB {
     @Override
     public void update() {
 
+    }
+
+    public YldComponent[] getComponents(String componentName) {
+        final HashSet<YldComponent> components0 = new HashSet<>();
+
+        components.forEach(c -> {
+            if (c.getComponentName().hashCode() == componentName.hashCode())
+                if (c.getComponentName().equals(componentName))
+                    components0.add(c);
+        });
+
+        return components0.toArray(new YldComponent[0]);
+    }
+
+    public YldComponent getComponent(String componentName) {
+        return getComponents(componentName)[0];
     }
 
     private static YldObject searchMethodObject;
@@ -51,4 +77,50 @@ public abstract class YldObject extends YldB {
         return name;
     }
 
+    public HashSet<YldComponent> getComponents() {
+        return components;
+    }
+
+    public YldAxis getAxis() {
+        return axis;
+    }
+
+    public void setAxis(YldAxis axis) {
+        this.axis = axis;
+    }
+
+    public void add(YldComponent component) {
+        component.setObject(this);
+        components.add(component);
+    }
+
+    public YldScene getScene() {
+        return scene;
+    }
+
+    public void setScene(YldScene scene) {
+        this.scene = scene;
+    }
+
+    public YldGraphicsExtension getGraphicsExtension() {
+        return graphicsExtension;
+    }
+
+    public void setGraphicsExtension(YldGraphicsExtension graphicsExtension) {
+        this.graphicsExtension = graphicsExtension;
+    }
+
+    public void startGraphicsExtension() {
+        graphicsExtension = new YldGraphicsExtension();
+        graphicsExtension.setGraphicsComponents(components);
+        scene.add(graphicsExtension);
+    }
+
+    public boolean isStartGraphicsExtension() {
+        return startGraphicsExtension;
+    }
+
+    public void setStartGraphicsExtension(boolean startGraphicsExtension) {
+        this.startGraphicsExtension = startGraphicsExtension;
+    }
 }

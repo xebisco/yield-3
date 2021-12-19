@@ -1,5 +1,6 @@
 package yield.core;
 
+import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.HashSet;
 
@@ -42,8 +43,7 @@ public class YldBHandler implements YldLoopable {
 
     public static void updateB(YldB[] objects) {
         try {
-            for (int i = 0; i < objects.length; i++) {
-                YldB b = objects[i];
+            for (YldB b : objects) {
                 if (b.getLayer() < 0)
                     b.setLayer(0);
                 b.setFrames(b.getFrames() + 1);
@@ -52,8 +52,7 @@ public class YldBHandler implements YldLoopable {
             }
             int layer = 0, maxLayer = 0;
             while (layer <= maxLayer) {
-                for (int i = 0; i < objects.length; i++) {
-                    YldB b = objects[i];
+                for (YldB b : objects) {
                     if (maxLayer < b.getLayer())
                         maxLayer = b.getLayer();
                     if (layer == b.getLayer() && b.isActive() && b.getFrames() > 1)

@@ -38,7 +38,7 @@ public abstract class YldScene extends YldB implements YldGraphical {
                 if (b instanceof YldGraphical)
                     yldGraphics.add((YldGraphical) b);
             });
-            YldGame.drawB(yldGraphics.toArray(new YldB[0]), g);
+            YldGame.drawB(yldGraphics.toArray(new YldLayable[0]), g);
         } catch (ConcurrentModificationException e) {
             draw(g);
         }
@@ -62,7 +62,12 @@ public abstract class YldScene extends YldB implements YldGraphical {
 
     public YldObject add(YldObject object) {
         objects.add(object);
+        object.setScene(this);
         return object;
+    }
+
+    public void remove(YldObject object) {
+        objects.remove(object);
     }
 
     public YldObject removeObject(YldObject object) {

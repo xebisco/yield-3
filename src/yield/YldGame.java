@@ -8,6 +8,7 @@ import yield.display.YldDrawTarget;
 import yield.exceptions.YldSceneException;
 import yield.objects.YldB;
 import yield.display.YldGraphical;
+import yield.objects.YldLayable;
 import yield.objects.YldObject;
 import yield.objects.YldScene;
 import yield.util.YldInput;
@@ -97,11 +98,11 @@ public final class YldGame extends JPanel implements YldLoopable {
         }
     }
 
-    public static void drawB(YldB[] objects, Graphics g) {
+    public static void drawB(YldLayable[] objects, Graphics g) {
         try {
             HashSet<YldGraphical> graphics = new HashSet<>();
 
-            for (YldB b : objects) {
+            for (YldLayable b : objects) {
                 if (b instanceof YldGraphical)
                     graphics.add((YldGraphical) b);
             }
@@ -109,10 +110,10 @@ public final class YldGame extends JPanel implements YldLoopable {
             int layer = 0, maxLayer = 0;
             while (layer <= maxLayer) {
                 for (YldGraphical b : graphics) {
-                    YldB bt = (YldB) b;
+                    YldLayable bt = (YldLayable) b;
                     if (maxLayer < bt.getLayer())
                         maxLayer = bt.getLayer();
-                    if (layer == bt.getLayer() && bt.isActive() && bt.getFrames() > 1)
+                    if (layer == bt.getLayer() && bt.isActive())
                         b.draw(g);
                 }
                 layer++;
