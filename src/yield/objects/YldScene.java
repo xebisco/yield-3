@@ -1,6 +1,7 @@
 package yield.objects;
 
 import yield.YldGame;
+import yield.components.YldComponent;
 import yield.core.YldBHandler;
 import yield.display.YldGraphical;
 
@@ -50,6 +51,22 @@ public abstract class YldScene extends YldB implements YldGraphical {
     @Override
     public void load() {
 
+    }
+
+    public YldObject[] getObjects(String name) {
+        final HashSet<YldObject> objects0 = new HashSet<>();
+
+        objects.forEach(c -> {
+            if (c.getName().hashCode() == name.hashCode())
+                if (c.getName().equals(name))
+                    objects0.add(c);
+        });
+
+        return objects0.toArray(new YldObject[0]);
+    }
+
+    public YldObject getObject(String name) {
+        return getObjects(name)[0];
     }
 
     public String getSceneName() {

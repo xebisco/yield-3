@@ -1,5 +1,7 @@
 package yield.components;
 
+import yield.display.Vector;
+
 import java.awt.*;
 import java.util.Objects;
 
@@ -78,13 +80,6 @@ public class YldAxis extends YldComponent {
         @Override
         public int hashCode() {
             return Objects.hash(x, y);
-        }
-    }
-
-    public static class Vector extends YldAxisBasic {
-        public Vector(float x, float y) {
-            setX(x);
-            setY(y);
         }
     }
 

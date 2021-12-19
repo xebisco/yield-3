@@ -1,21 +1,18 @@
 package yield.display;
 
+import yield.components.YldString;
 import yield.objects.YldObject;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class YldText extends YldObject implements YldGraphical {
-
-    private String text;
-    private Color color = Color.white;
-    private Font font = new Font("arial", Font.BOLD, 70);
-    private static String nullText = "null";
+public class YldText extends YldObject {
 
     private int x, y;
+    private final String text;
 
     public YldText(){
-
+        this.text = null;
     }
 
     public YldText(String text) {
@@ -23,60 +20,16 @@ public class YldText extends YldObject implements YldGraphical {
     }
 
     @Override
-    public void draw(Graphics g) {
-        g.setColor(color);
-        g.setFont(font);
-        if(text != null)
-            g.drawString(text, x, y + g.getFont().getSize());
-        else
-            g.drawString(nullText, x, y + g.getFont().getSize());
+    public void create() {
+        super.create();
+        add(new YldString(text));
     }
 
-    public String getText() {
-        return text;
+    public void setX(float x) {
+        axis.position.setX(x);
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public Font getFont() {
-        return font;
-    }
-
-    public void setFont(Font font) {
-        this.font = font;
-    }
-
-    public static String getNullText() {
-        return nullText;
-    }
-
-    public static void setNullText(String nullText) {
-        YldText.nullText = nullText;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+    public void setY(float y) {
+        axis.position.setY(y);
     }
 }

@@ -12,6 +12,7 @@ class Main extends YldFrame {
     private Main() {
         super();
         add(new YldGame(1280, 720, new MainScene()));
+        YldGame.setAntialiasing(true);
         setVisible(true);
     }
 

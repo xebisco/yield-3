@@ -1,19 +1,17 @@
 package yield.test;
 
-import yield.components.YldImage;
+import yield.components.YldAxis;
+import yield.components.YldString;
+import yield.display.Vector;
 import yield.objects.YldObject;
-
-import javax.swing.*;
-import java.util.Arrays;
-import java.util.Objects;
 
 class MainObject extends YldObject {
 
     @Override
     public void create() {
         super.create();
-        add(new YldImage(new ImageIcon(Objects.requireNonNull(MainObject.class.getResource("/yield/YieldP.png"))).getImage()));
-        axis.scale.setImageScale(((YldImage) getComponent("YldImage")).getImage());
+        add(new YldString("test"));
+        axis.position.teleport(new Vector(100, 100));
     }
 
     @Override

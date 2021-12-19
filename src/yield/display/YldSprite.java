@@ -37,4 +37,13 @@ public class YldSprite extends YldObject {
     public static Image getNullImage() {
         return nullImage;
     }
+
+    public void setX(float x) {
+        axis.position.setX(x);
+    }
+
+    public void setY(float y) {
+        axis.position.setY(y);
+    }
+
 }
