@@ -1,21 +1,25 @@
 package yield.test;
 
-import yield.components.YldAxis;
-import yield.components.YldString;
+import yield.components.YldImage;
 import yield.display.Vector;
 import yield.objects.YldObject;
+import yield.util.YldInput;
+
+import java.awt.event.KeyEvent;
 
 class MainObject extends YldObject {
 
     @Override
     public void create() {
         super.create();
-        add(new YldString("test"));
-        axis.position.teleport(new Vector(100, 100));
+        add(new YldImage());
     }
 
     @Override
     public void update() {
         super.update();
+        if (YldInput.isKeyPressed(KeyEvent.VK_RIGHT)) {
+            axis.position.translate(new Vector(10, 0));
+        }
     }
 }
